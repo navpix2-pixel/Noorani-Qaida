@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a2a18">
+<link rel="manifest" href="manifest.json">
+<title>Noor Kids – Islamic Learning</title>
+<script src="https://accounts.google.com/gsi/client" async></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Fredoka+One&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow-x:hidden;}
+:root{
+  --c1:#0a2a18;--c2:#051510;--c3:#143d22;
+  --gold:#f0c040;--gold2:#b8920a;--gold3:#ffe580;
+  --green:#1e7a42;--green2:#155a30;
+  --sky:#7dd3fc;--peach:#fca5a5;--lilac:#c4b5fd;--orange:#fdba74;
+  --card:rgba(255,255,255,.07);--brd:rgba(240,192,64,.18);
+  --t1:#fffde8;--t2:rgba(255,253,220,.65);--t3:rgba(255,253,220,.38);
+  --sb:0px; /* status bar height set by JS */
+}
+[data-theme=night]{--c1:#07071a;--c2:#030310;--c3:#0e0e3a;--gold:#c4b5fd;--gold2:#7c3aed;--gold3:#e9d5ff;--green:#5b21b6;--green2:#4c1d95;}
+[data-theme=ocean]{--c1:#082040;--c2:#041020;--c3:#103560;--gold:#38bdf8;--gold2:#0284c7;--gold3:#bae6fd;--green:#0369a1;--green2:#075985;}
+[data-theme=sunset]{--c1:#7c1a10;--c2:#3d0c08;--c3:#9a2515;--gold:#fcd34d;--gold2:#b45309;--gold3:#fef3c7;--green:#c2410c;--green2:#9a3412;}
+[data-theme=rose]{--c1:#4a0d38;--c2:#2a061e;--c3:#6b1455;--gold:#f9a8d4;--gold2:#be185d;--gold3:#fce7f3;--green:#9d174d;--green2:#831843;}
+
+body{background:var(--c1);color:var(--t1);font-family:'Nunito',sans-serif;}
+#stars{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 10%,var(--c3),var(--c2) 60%);pointer-events:none;}
+#stars::after{content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 10%,rgba(255,255,200,.9),transparent),
+    radial-gradient(1px 1px at 22% 6%,rgba(255,255,200,.7),transparent),
+    radial-gradient(2px 2px at 45% 14%,rgba(255,255,200,.8),transparent),
+    radial-gradient(1px 1px at 68% 8%,rgba(255,255,200,.6),transparent),
+    radial-gradient(1.5px 1.5px at 87% 18%,rgba(255,255,200,.9),transparent),
+    radial-gradient(1px 1px at 14% 34%,rgba(255,255,200,.5),transparent),
+    radial-gradient(1px 1px at 55% 28%,rgba(255,255,200,.6),transparent),
+    radial-gradient(1px 1px at 93% 38%,rgba(255,255,200,.5),transparent),
+    radial-gradient(1.5px 1.5px at 33% 55%,rgba(255,255,200,.4),transparent),
+    radial-gradient(1px 1px at 72% 48%,rgba(255,255,200,.5),transparent);
+  animation:twk 3.5s ease-in-out infinite alternate;}
+@keyframes twk{from{opacity:.4}to{opacity:1}}
+
+/* ===== STATUS BAR SAFE AREA ===== */
+#sb-fill{position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--c2);height:var(--sb,24px);}
+
+/* ===== LOGIN ===== */
+#loginPage{position:fixed;inset:0;z-index:900;display:flex;align-items:center;justify-content:center;padding:16px;background:radial-gradient(ellipse at 50% 30%,var(--c3),var(--c2));}
+.lbox{background:rgba(255,255,255,.07);border:1.5px solid var(--brd);border-radius:24px;padding:30px 22px;max-width:330px;width:100%;text-align:center;backdrop-filter:blur(10px);}
+.lmoon{font-size:3.2rem;display:inline-block;animation:moon 3s ease-in-out infinite;}
+@keyframes moon{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-7px) rotate(4deg);}}
+.lbism{font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold3);direction:rtl;margin:6px 0 2px;}
+.ltitle{font-family:'Fredoka One';font-size:1.9rem;color:var(--gold);text-shadow:0 0 20px rgba(240,192,64,.4);}
+.lsub{font-size:.8rem;color:var(--t2);margin-bottom:20px;}
+.lsub span{font-family:'Amiri',serif;direction:rtl;display:block;color:var(--gold3);margin-top:2px;}
+.gbtn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:#fff;border:none;border-radius:50px;font-family:'Nunito';font-size:.92rem;font-weight:800;color:#333;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);touch-action:manipulation;transition:transform .15s;}
+.gbtn:active{transform:scale(.96);}
+.lor{font-size:.76rem;color:var(--t3);margin:12px 0;}
+.gstbtn{width:100%;padding:11px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:50px;color:var(--t2);font-family:'Nunito';font-size:.86rem;font-weight:700;cursor:pointer;touch-action:manipulation;}
+.gstbtn:active{background:rgba(255,255,255,.16);}
+.lfeats{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.lfeat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:7px;font-size:.7rem;color:var(--t2);}
+.lfeat b{display:block;font-size:1.1rem;margin-bottom:2px;}
+#gnote{margin-top:12px;padding:10px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.3);border-radius:12px;font-size:.74rem;color:#fca5a5;text-align:left;line-height:1.6;display:none;}
+#gnote a{color:var(--sky);}
+#gnote button{margin-top:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:7px 14px;color:#fff;cursor:pointer;font-family:'Nunito';font-size:.78rem;font-weight:700;touch-action:manipulation;}
+
+/* ===== MAIN APP ===== */
+#mainApp{display:none;flex-direction:column;min-height:100vh;}
+
+/* ===== FIXED TOP HEADER ===== */
+#topbar{position:fixed;top:0;left:0;right:0;z-index:200;
+  background:linear-gradient(180deg,rgba(5,21,16,.98),rgba(5,21,16,.92));
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(240,192,64,.12);
+  padding-top:var(--sb,24px);}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;}
+.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-moon{font-size:1.6rem;animation:moon 3s ease-in-out infinite;filter:drop-shadow(0 0 6px var(--gold));}
+.tb-titles{}
+.tb-title{font-family:'Fredoka One';font-size:1.15rem;color:var(--gold);line-height:1;}
+.tb-bism{font-family:'Amiri',serif;font-size:.82rem;color:var(--gold3);direction:rtl;line-height:1.2;}
+.tb-right{display:flex;align-items:center;gap:8px;}
+#uav{width:34px;height:34px;border-radius:50%;border:2px solid var(--gold);background:var(--green2);display:flex;align-items:center;justify-content:center;font-family:'Fredoka One';font-size:.9rem;color:var(--gold);overflow:hidden;flex-shrink:0;cursor:pointer;touch-action:manipulation;}
+#uav img{width:100%;height:100%;object-fit:cover;}
+#setBtn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:34px;height:34px;font-size:1.1rem;cursor:pointer;touch-action:manipulation;display:flex;align-items:center;justify-content:center;}
+
+/* XP bar inside topbar */
+.xpbar{padding:4px 14px 8px;}
+.xprow{display:flex;justify-content:space-between;font-size:.62rem;color:var(--t3);font-weight:700;margin-bottom:2px;}
+.xpbg{background:rgba(255,255,255,.1);border-radius:50px;height:4px;overflow:hidden;}
+.xpfill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:50px;transition:width .5s;}
+
+/* Topbar height placeholder */
+#topbarSpacer{height:80px;flex-shrink:0;}
+
+/* ===== USER PROFILE MODAL ===== */
+.modal-ov{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-ov.on{display:flex;}
+.modal-box{background:linear-gradient(145deg,var(--c3),var(--c2));border:1.5px solid var(--brd);border-radius:22px;padding:24px 20px;width:100%;max-width:320px;animation:popin .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popin{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-close{float:right;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--t3);padding:0 4px;touch-action:manipulation;}
+.prof-pic{width:72px;height:72px;border-radius:50%;border:3px solid var(--gold);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One';font-size:2rem;color:var(--gold);background:var(--green2);overflow:hidden;}
+.prof-pic img{width:100%;height:100%;object-fit:cover;}
+.prof-name{font-family:'Fredoka One';font-size:1.3rem;color:var(--gold);text-align:center;}
+.prof-email{font-size:.75rem;color:var(--t3);text-align:center;margin-bottom:14px;}
+.prof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.prof-stat{background:rgba(255,255,255,.07);border:1px solid var(--brd);border-radius:12px;padding:10px;text-align:center;}
+.prof-stat-n{font-family:'Fredoka One';font-size:1.4rem;color:var(--gold);}
+.prof-stat-l{font-size:.6rem;color:var(--t3);font-weight:700;text-transform:uppercase;}
+.prof-badges{margin-bottom:14px;}
+.prof-badges-t{font-size:.72rem;font-weight:800;color:var(--t3);text-transform:uppercase;margin-bottom:6px;}
+.badges-grid{display:flex;gap:6px;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5px 8px;font-size:.7rem;color:var(--t2);}
+.badge.earned{background:rgba(240,192,64,.15);border-color:rgba(240,192,64,.3);color:var(--gold3);}
+.prof-btn{width:100%;padding:10px;background:rgba(252,165,165,.1);border:1.5px solid rgba(252,165,165,.25);border-radius:50px;color:var(--peach);font-family:'Nunito';font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation;margin-top:4px;}
+.prof-btn:active{background:rgba(252,165,165,.2);}
+
+/* ===== NAV ===== */
+nav{display:flex;justify-content:space-around;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(5,15,8,.97);backdrop-filter:blur(14px);border-top:1px solid rgba(240,192,64,.12);padding:5px 0;padding-bottom:max(5px,env(safe-area-inset-bottom,0px));}
+.nb{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 8px;border:none;background:none;cursor:pointer;touch-action:manipulation;min-width:46px;}
+.ni{font-size:1.3rem;transition:transform .2s;}
+.nl{font-size:.56rem;font-family:'Nunito';font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;}
+.nb.on .ni{transform:scale(1.2);}
+.nb.on .nl{color:var(--gold);}
+
+/* ===== SECTIONS ===== */
+.pg{display:none;padding:4px 12px 82px;animation:pgIn .28s ease;}
+.pg.on{display:block;}
+@keyframes pgIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== COMMON ===== */
+.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:15px;margin-bottom:12px;}
+.ctit{font-family:'Fredoka One';font-size:1.05rem;color:var(--gold);margin-bottom:4px;}
+.csub{font-size:.78rem;color:var(--t2);}
+.slbl{font-family:'Fredoka One';font-size:.88rem;color:var(--gold);margin:10px 0 8px;display:flex;align-items:center;gap:5px;}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:50px;padding:10px 20px;color:#1a0d00;font-family:'Fredoka One';font-size:.9rem;cursor:pointer;touch-action:manipulation;transition:transform .15s;}
+.btn-gold:active{transform:scale(.94);}
+.btn-ghost{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14);border-radius:50px;padding:9px 18px;color:var(--t2);font-family:'Nunito';font-size:.78rem;font-weight:700;cursor:pointer;touch-action:manipulation;}
+.btn-ghost:active{background:rgba(255,255,255,.16);}
+.btn-sp{background:rgba(125,211,252,.12);border:1.5px solid rgba(125,211,252,.28);border-radius:50px;padding:7px 14px;color:var(--sky);font-size:.76rem;font-weight:700;cursor:pointer;touch-action:manipulation;font-family:'Nunito';display:inline-flex;align-items:center;gap:4px;}
+.btn-sp:active{background:rgba(125,211,252,.24);transform:scale(.95);}
+
+/* ===== HOME ===== */
+.hgreet{font-family:'Fredoka One';font-size:1.35rem;color:var(--gold);}
+.hgsub{font-size:.78rem;color:var(--t2);margin-bottom:12px;}
+.stats{display:flex;gap:8px;margin-bottom:12px;}
+.sbox{flex:1;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:11px;text-align:center;}
+.sboxn{font-family:'Fredoka One';font-size:1.7rem;color:var(--gold);}
+.sboxl{font-size:.62rem;color:var(--t3);font-weight:700;text-transform:uppercase;}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
+.qc{background:var(--card);border:1.5px solid var(--brd);border-radius:14px;padding:13px;cursor:pointer;touch-action:manipulation;transition:transform .15s;display:flex;flex-direction:column;gap:4px;}
+.qc:active{transform:scale(.96);}
+.qi{font-size:1.7rem;}
+.qt{font-family:'Fredoka One';font-size:.92rem;color:var(--t1);}
+.qs{font-size:.66rem;color:var(--t3);}
+.ayatbox{background:linear-gradient(135deg,rgba(240,192,64,.09),rgba(10,42,24,.7));border:1.5px solid rgba(240,192,64,.22);border-radius:14px;padding:14px;margin-bottom:12px;}
+.ayatlbl{font-size:.66rem;color:var(--t3);font-weight:700;text-transform:uppercase;margin-bottom:6px;}
+.ayata{font-family:'Amiri',serif;font-size:1.4rem;color:var(--gold);direction:rtl;text-align:right;line-height:1.8;}
+.ayatu{font-family:'Amiri',serif;font-size:.85rem;color:var(--orange);direction:rtl;text-align:right;margin-top:4px;}
+.ayate{font-size:.76rem;color:var(--t2);font-style:italic;margin-top:4px;}
+
+/* ===== QAIDA ===== */
+.ltabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.ltab{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:50px;padding:6px 12px;font-size:.74rem;font-weight:700;color:var(--t2);cursor:pointer;touch-action:manipulation;white-space:nowrap;}
+.ltab.on{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a0d00;border-color:var(--gold);}
+.ldis{background:linear-gradient(135deg,rgba(240,192,64,.09),rgba(10,42,24,.7));border:2px solid rgba(240,192,64,.3);border-radius:18px;padding:18px 14px;margin-bottom:12px;text-align:center;}
+.ldisa{font-family:'Amiri',serif;font-size:2.8rem;color:var(--gold);direction:rtl;line-height:1.3;}
+.ldisu{font-family:'Amiri',serif;font-size:.98rem;color:var(--orange);direction:rtl;margin-top:4px;}
+.ldise{font-size:.78rem;color:var(--t2);margin-top:3px;}
+.pgbar{margin-bottom:12px;}
+.pgrow{display:flex;justify-content:space-between;font-size:.68rem;color:var(--t3);font-weight:700;margin-bottom:3px;}
+.pgbg{background:rgba(255,255,255,.1);height:6px;border-radius:50px;overflow:hidden;}
+.pgfill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:50px;transition:width .4s;}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:7px;margin-bottom:12px;}
+.lbtn{background:linear-gradient(135deg,rgba(30,122,66,.35),rgba(10,42,24,.6));border:2px solid rgba(240,192,64,.18);border-radius:13px;padding:11px 5px;text-align:center;cursor:pointer;touch-action:manipulation;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.lbtn:active,.lbtn.sel{background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:var(--gold);}
+.la{font-family:'Amiri',serif;font-size:1.8rem;color:var(--gold3);line-height:1;direction:rtl;}
+.lbtn:active .la,.lbtn.sel .la{color:#1a0d00;}
+.lu{font-size:.57rem;color:var(--t3);font-weight:700;}
+.lbtn:active .lu,.lbtn.sel .lu{color:rgba(26,13,0,.7);}
+.det{background:linear-gradient(135deg,rgba(240,192,64,.08),rgba(10,42,24,.85));border:2px solid rgba(240,192,64,.32);border-radius:16px;padding:16px 13px;margin-bottom:12px;}
+.detmain{display:flex;gap:13px;align-items:center;margin-bottom:11px;}
+.detbig{font-family:'Amiri',serif;font-size:4.5rem;color:var(--gold);min-width:80px;text-align:center;line-height:1;direction:rtl;text-shadow:0 0 18px rgba(240,192,64,.5);}
+.detn{font-family:'Fredoka One';font-size:1.3rem;color:var(--gold);}
+.detu{font-family:'Amiri',serif;font-size:1.05rem;color:var(--orange);direction:rtl;}
+.detd{font-size:.78rem;color:var(--t2);line-height:1.5;margin-top:2px;}
+.pronbox{background:rgba(125,211,252,.07);border:1px solid rgba(125,211,252,.18);border-radius:10px;padding:9px 11px;margin-bottom:10px;}
+.pronlbl{font-size:.66rem;font-weight:800;color:var(--sky);text-transform:uppercase;margin-bottom:2px;}
+.prontxt{font-size:.82rem;color:var(--t1);line-height:1.55;}
+.flbl{font-size:.66rem;font-weight:800;color:var(--t3);text-transform:uppercase;margin-bottom:6px;}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.fc{background:rgba(255,255,255,.06);border:1px solid rgba(240,192,64,.15);border-radius:10px;padding:8px 4px;text-align:center;}
+.fcar{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold3);display:block;direction:rtl;}
+.fcn{font-size:.6rem;color:var(--t3);font-weight:700;margin-top:1px;}
+.words{display:flex;gap:6px;flex-wrap:wrap;direction:rtl;margin-bottom:10px;}
+.word{background:rgba(255,255,255,.05);border:1px solid rgba(240,192,64,.13);border-radius:9px;padding:6px 9px;text-align:center;cursor:pointer;touch-action:manipulation;}
+.word:active{background:rgba(240,192,64,.15);}
+.wordar{font-family:'Amiri',serif;font-size:1.25rem;color:var(--gold3);display:block;direction:rtl;}
+.worden{font-size:.62rem;color:var(--t3);}
+.detbtns{display:flex;gap:6px;flex-wrap:wrap;}
+.tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:7px;margin-bottom:12px;}
+.tile{background:rgba(255,255,255,.06);border:1px solid rgba(240,192,64,.15);border-radius:11px;padding:9px 6px;text-align:center;cursor:pointer;touch-action:manipulation;}
+.tile:active{background:rgba(240,192,64,.18);transform:scale(1.05);}
+.tilear{font-family:'Amiri',serif;font-size:1.55rem;color:var(--gold3);display:block;direction:rtl;}
+.tilero{font-size:.6rem;color:var(--t3);}
+.hbox{background:linear-gradient(135deg,rgba(240,192,64,.09),rgba(10,42,24,.7));border:2px solid rgba(240,192,64,.28);border-radius:16px;padding:16px;text-align:center;margin-bottom:12px;}
+.hboxa{font-family:'Amiri',serif;font-size:3.2rem;color:var(--gold);direction:rtl;display:block;}
+.hboxr{font-size:.82rem;color:var(--t2);margin-top:5px;}
+.hboxbtns{display:flex;gap:7px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+
+/* ===== DUAS ===== */
+.dcats{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.dcat{background:rgba(255,255,255,.07);border:1.5px solid rgba(125,211,252,.18);border-radius:50px;padding:6px 12px;font-size:.74rem;font-weight:700;color:var(--t2);cursor:pointer;touch-action:manipulation;white-space:nowrap;}
+.dcat.on{background:rgba(125,211,252,.15);color:var(--sky);border-color:var(--sky);}
+.dcard{background:linear-gradient(145deg,rgba(20,80,42,.42),rgba(5,21,16,.72));border:1.5px solid rgba(125,211,252,.12);border-radius:16px;padding:15px;margin-bottom:10px;cursor:pointer;touch-action:manipulation;position:relative;}
+.dcard:active{transform:scale(.985);}
+.dcard::after{content:'▼';position:absolute;top:15px;left:15px;font-size:.65rem;color:var(--t3);transition:transform .3s;}
+.dcard.on::after{transform:rotate(180deg);}
+.dcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--sky),transparent);opacity:0;border-radius:16px 16px 0 0;}
+.dcard.on::before{opacity:1;}
+.dn{font-family:'Fredoka One';font-size:.95rem;color:var(--sky);}
+.dnr{font-family:'Amiri',serif;font-size:.88rem;color:var(--gold3);direction:rtl;margin-top:1px;}
+.dw{font-size:.7rem;color:var(--t3);font-style:italic;margin-bottom:8px;padding-right:20px;}
+.dar{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold3);direction:rtl;text-align:right;line-height:1.9;display:none;margin-bottom:7px;}
+.dur{font-family:'Amiri',serif;font-size:.92rem;color:var(--orange);direction:rtl;text-align:right;line-height:1.8;display:none;margin-bottom:6px;padding:8px 10px;background:rgba(253,186,116,.07);border-radius:9px;border-right:3px solid var(--orange);}
+.dtr{font-size:.78rem;color:var(--t2);font-style:italic;display:none;margin-bottom:5px;}
+.den{font-size:.78rem;color:var(--t1);background:rgba(0,0,0,.18);border-radius:9px;padding:8px;display:none;}
+.dcard.on .dar,.dcard.on .dur,.dcard.on .dtr,.dcard.on .den{display:block;}
+.dbtns{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;}
+
+/* ===== TASBEEH ===== */
+.tw{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.tsel{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
+.to{background:rgba(255,255,255,.07);border:1.5px solid rgba(253,186,116,.2);border-radius:11px;padding:8px 11px;cursor:pointer;touch-action:manipulation;text-align:center;min-width:82px;}
+.to.on{background:rgba(253,186,116,.13);border-color:var(--orange);}
+.toa{font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold3);direction:rtl;display:block;}
+.toe{font-size:.6rem;color:var(--t3);font-weight:700;margin-top:1px;}
+.ring-wrap{position:relative;width:190px;height:190px;display:flex;align-items:center;justify-content:center;}
+.ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--gold) 0deg,rgba(240,192,64,.1) 0deg);padding:8px;transition:background .2s;}
+.ring-in{width:100%;height:100%;border-radius:50%;background:var(--c2);display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid rgba(240,192,64,.18);}
+.rnum{font-family:'Fredoka One';font-size:3.8rem;color:var(--gold);line-height:1;text-shadow:0 0 18px rgba(240,192,64,.5);transition:transform .1s;}
+.rnum.bump{transform:scale(1.2);}
+.rsub{font-size:.7rem;color:var(--t3);font-weight:700;}
+.tapbtn{background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:50%;width:100px;height:100px;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;touch-action:manipulation;box-shadow:0 5px 22px rgba(240,192,64,.42);animation:rp 2.5s ease-in-out infinite;}
+@keyframes rp{0%,100%{box-shadow:0 5px 22px rgba(240,192,64,.42),0 0 0 0 rgba(240,192,64,.18);}50%{box-shadow:0 5px 22px rgba(240,192,64,.42),0 0 0 11px rgba(240,192,64,0);}}
+.tapbtn:active{transform:scale(.88);}
+.tapic{font-size:2rem;}
+.taplb{font-family:'Fredoka One';font-size:.7rem;color:#1a0d00;}
+.tcur-a{font-family:'Amiri',serif;font-size:1.7rem;color:var(--gold3);direction:rtl;text-align:center;}
+.tcur-u{font-family:'Amiri',serif;font-size:.9rem;color:var(--orange);direction:rtl;text-align:center;margin-top:2px;}
+.tcur-m{font-size:.72rem;color:var(--t3);text-align:center;font-style:italic;}
+.setsbox{background:rgba(0,0,0,.18);border-radius:12px;padding:10px 16px;text-align:center;width:100%;max-width:260px;}
+.setslb{font-size:.68rem;color:var(--t3);font-weight:700;margin-bottom:2px;}
+.setsn{font-family:'Fredoka One';font-size:1.5rem;color:var(--lilac);}
+.tctrl{display:flex;gap:9px;}
+
+/* ===== STORIES ===== */
+.scard{background:linear-gradient(145deg,rgba(20,62,34,.38),rgba(5,21,16,.65));border:1.5px solid rgba(196,181,253,.16);border-radius:16px;overflow:hidden;margin-bottom:10px;}
+.shead{padding:13px;display:flex;align-items:center;gap:10px;cursor:pointer;touch-action:manipulation;}
+.sem{font-size:2.2rem;flex-shrink:0;}
+.sn{font-family:'Fredoka One';font-size:1rem;color:var(--lilac);}
+.snu{font-family:'Amiri',serif;font-size:.88rem;color:var(--gold3);direction:rtl;margin-top:1px;}
+.sp{font-size:.72rem;color:var(--t2);margin-top:1px;}
+.sbody{display:none;padding:0 13px 13px;}
+.sbody.on{display:block;}
+.sart{font-family:'Amiri',serif;font-size:1.2rem;color:var(--gold);direction:rtl;text-align:center;padding:8px;background:rgba(240,192,64,.06);border-radius:10px;margin-bottom:10px;}
+.sten{font-size:.81rem;color:var(--t1);line-height:1.8;margin-bottom:9px;}
+.sten p{margin-bottom:8px;}
+.stur{font-family:'Amiri',serif;font-size:.92rem;color:var(--orange);direction:rtl;text-align:right;line-height:1.9;padding:9px;background:rgba(253,186,116,.07);border-radius:9px;border-right:3px solid var(--orange);margin-bottom:9px;}
+.sles{background:rgba(196,181,253,.09);border:1px solid rgba(196,181,253,.22);border-radius:10px;padding:10px;font-size:.78rem;color:var(--t1);}
+.sles b{color:var(--lilac);}
+.sbtns{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;}
+
+/* ===== NUMBERS ===== */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:7px;}
+.nc{background:linear-gradient(135deg,rgba(252,165,165,.1),rgba(10,42,24,.5));border:1.5px solid rgba(252,165,165,.18);border-radius:12px;padding:11px 5px;text-align:center;cursor:pointer;touch-action:manipulation;}
+.nc:active{transform:scale(1.08);}
+.na{font-family:'Amiri',serif;font-size:1.6rem;color:var(--peach);display:block;direction:rtl;}
+.nd{font-size:.78rem;color:var(--t2);font-weight:700;}
+.ne{font-size:.64rem;color:var(--t3);}
+.nu-{font-family:'Amiri',serif;font-size:.76rem;color:var(--orange);direction:rtl;margin-top:1px;}
+
+/* ===== SETTINGS ===== */
+.sov{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);display:none;align-items:flex-end;justify-content:center;}
+.sov.on{display:flex;}
+.span2{background:linear-gradient(180deg,var(--c3),var(--c2));border:1px solid var(--brd);border-radius:20px 20px 0 0;width:100%;max-width:470px;padding:20px 16px 28px;animation:sup .28s ease;}
+@keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.shand{width:32px;height:3px;background:rgba(255,255,255,.18);border-radius:50px;margin:0 auto 14px;}
+.stit{font-family:'Fredoka One';font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+.ssec{font-size:.72rem;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px;margin-top:12px;}
+.thg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+.thsw{border-radius:12px;padding:9px 5px;text-align:center;cursor:pointer;touch-action:manipulation;border:2px solid transparent;}
+.thsw.on{border-color:var(--gold);}
+.thsw:active{transform:scale(.95);}
+.thsw em{font-size:1.4rem;display:block;margin-bottom:3px;font-style:normal;}
+.thsw p{font-size:.58rem;font-weight:700;color:var(--t2);}
+.vsel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:7px 9px;color:var(--t1);font-family:'Nunito';font-size:.78rem;width:100%;margin-bottom:4px;}
+.srow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.srow label{font-size:.82rem;color:var(--t1);}
+.tog{position:relative;width:40px;height:22px;}
+.tog input{display:none;}
+.togsl{position:absolute;inset:0;background:rgba(255,255,255,.14);border-radius:50px;cursor:pointer;transition:background .2s;}
+.togsl::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s;}
+.tog input:checked+.togsl{background:var(--green);}
+.tog input:checked+.togsl::before{transform:translateX(18px);}
+
+/* ===== MISC ===== */
+#ind{position:fixed;top:calc(var(--sb,24px) + 62px);right:10px;z-index:300;background:rgba(10,42,24,.95);border:1.5px solid rgba(125,211,252,.4);border-radius:50px;padding:6px 14px;font-size:.72rem;color:var(--sky);display:none;font-family:'Nunito';font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.3);backdrop-filter:blur(8px);transition:all .2s;max-width:200px;text-align:center;}
+#ind.on{display:block;animation:indPop .2s ease;}
+@keyframes indPop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+#cpop{position:fixed;inset:0;z-index:600;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);backdrop-filter:blur(5px);}
+#cpop.on{display:flex;}
+.cpopbox{text-align:center;animation:popin .38s cubic-bezier(.34,1.56,.64,1);}
+.cpope{font-size:4.2rem;}
+.cpopt{font-family:'Fredoka One';font-size:1.7rem;color:var(--gold);margin:6px 0 3px;}
+.cpops{font-size:.82rem;color:var(--t2);}
+.pt{position:fixed;pointer-events:none;font-size:1.3rem;z-index:999;animation:ptgo .7s ease-out forwards;}
+@keyframes ptgo{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2);}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="sb-fill"></div>
+<div id="ind">🔊 Speaking...</div>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="lbox">
+    <div class="lmoon">🌙</div>
+    <div class="lbism">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="ltitle">Noor Kids</div>
+    <div class="lsub">Islamic Learning for Little Hearts<span>بچوں کی اسلامی تعلیم</span></div>
+    <button class="gbtn" onclick="doGL()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Sign in with Google
+    </button>
+    <div id="g_id_onload" data-client_id="1094346649759-q17aguin3vuel4ouefif3gdddlp2v863.apps.googleusercontent.com" data-callback="onGT" data-auto_prompt="false" data-context="signin"></div>
+    <div class="lor">— or —</div>
+    <button class="gstbtn" onclick="guestL()">🕌 Continue as Guest</button>
+    <div class="lfeats">
+      <div class="lfeat"><b>📖</b>30 Lessons</div>
+      <div class="lfeat"><b>🤲</b>100+ Duas</div>
+      <div class="lfeat"><b>📿</b>Tasbeeh</div>
+      <div class="lfeat"><b>📜</b>50 Stories</div>
+    </div>
+    <div id="gnote"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp">
+  <!-- FIXED TOP BAR -->
+  <div id="topbar">
+    <div class="topbar-inner">
+      <div class="tb-left">
+        <div class="tb-moon">🌙</div>
+        <div class="tb-titles">
+          <div class="tb-title">Noor Kids</div>
+          <div class="tb-bism">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+        </div>
+      </div>
+      <div class="tb-right">
+        <div id="uav" onclick="openProf()">?</div>
+        <button id="setBtn" onclick="openSet()">⚙️</button>
+      </div>
+    </div>
+    <div class="xpbar">
+      <div class="xprow"><span>⭐ Level <span id="xlv">1</span></span><span id="xtxt">0/100 XP</span></div>
+      <div class="xpbg"><div class="xpfill" id="xf" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div id="topbarSpacer"></div>
+
+  <div style="position:relative;z-index:1;flex:1;">
+    <!-- HOME -->
+    <div class="pg on" id="pg-home">
+      <div class="card">
+        <div class="hgreet" id="greet">Assalamu Alaikum! 👋</div>
+        <div class="hgsub">اَلسَّلَامُ عَلَيْكُمْ — Welcome back!</div>
+        <div class="stats">
+          <div class="sbox"><div class="sboxn" id="st-s">1</div><div class="sboxl">🔥 Streak</div></div>
+          <div class="sbox"><div class="sboxn" id="st-x">0</div><div class="sboxl">⭐ XP</div></div>
+          <div class="sbox"><div class="sboxn" id="st-d">0</div><div class="sboxl">🤲 Duas</div></div>
+        </div>
+      </div>
+      <div class="ayatbox">
+        <div class="ayatlbl">📖 Verse of the Day</div>
+        <div class="ayata">وَمَنْ يَّتَّقِ اللّٰهَ يَجْعَلْ لَّهُ مَخْرَجًا</div>
+        <div class="ayatu">اور جو اللہ سے ڈرے، اللہ اس کے لیے راستہ نکالتا ہے</div>
+        <div class="ayate">"Whoever fears Allah, He will make a way out." — At-Talaq 65:2</div>
+      </div>
+      <div class="qg">
+        <div class="qc" onclick="go('qaida')"><div class="qi">📖</div><div class="qt">Qaida</div><div class="qs">30 Lessons</div></div>
+        <div class="qc" onclick="go('duas')"><div class="qi">🤲</div><div class="qt">Duas</div><div class="qs">100+ Supplications</div></div>
+        <div class="qc" onclick="go('tasbeeh')"><div class="qi">📿</div><div class="qt">Tasbeeh</div><div class="qs">Dhikr counter</div></div>
+        <div class="qc" onclick="go('stories')"><div class="qi">📜</div><div class="qt">Prophets</div><div class="qs">50 Stories</div></div>
+      </div>
+    </div>
+    <!-- QAIDA -->
+    <div class="pg" id="pg-qaida">
+      <div class="card"><div class="ctit">📖 نورانی قاعدہ — Noorani Qaida</div><div class="csub">30 lessons — Arabic with Urdu translation</div></div>
+      <div class="ltabs" id="ltabs"></div>
+      <div id="lcon"></div>
+    </div>
+    <!-- DUAS -->
+    <div class="pg" id="pg-duas">
+      <div class="card"><div class="ctit">🤲 روزانہ کی دعائیں — 100+ Duas</div><div class="csub">Tap to expand — Arabic + Urdu + English</div></div>
+      <div class="dcats" id="dcats"></div>
+      <div id="dlist"></div>
+    </div>
+    <!-- TASBEEH -->
+    <div class="pg" id="pg-tasbeeh">
+      <div class="card"><div class="ctit">📿 ڈیجیٹل تسبیح</div><div class="csub">Tap the bead to count dhikr</div></div>
+      <div class="tw">
+        <div class="tsel" id="tsel"></div>
+        <div class="tcur-a" id="ta">سُبْحَانَ اللّٰهِ</div>
+        <div class="tcur-u" id="tu">اللہ پاک ہے</div>
+        <div class="tcur-m" id="tm">Glory be to Allah</div>
+        <div class="ring-wrap"><div class="ring" id="ring"><div class="ring-in"><div class="rnum" id="rn">0</div><div class="rsub">/ 33</div></div></div></div>
+        <button class="tapbtn" onclick="tap(event)"><span class="tapic">📿</span><span class="taplb">TAP</span></button>
+        <div class="setsbox"><div class="setslb">SETS COMPLETED (×33)</div><div class="setsn" id="tsn">0</div></div>
+        <div class="tctrl">
+          <button class="btn-ghost" onclick="resetT()">🔄 Reset</button>
+          <button class="btn-sp" onclick="spkAr(document.getElementById('ta').textContent)">🔊 Listen</button>
+        </div>
+      </div>
+    </div>
+    <!-- STORIES -->
+    <div class="pg" id="pg-stories">
+      <div class="card"><div class="ctit">📜 انبیاء کی کہانیاں — 50 Stories</div><div class="csub">Tap to read — English + Urdu + Audio</div></div>
+      <div id="slist"></div>
+    </div>
+    <!-- NUMBERS -->
+    <div class="pg" id="pg-numbers">
+      <div class="card"><div class="ctit">🔢 عربی گنتی</div><div class="csub">Arabic numbers with Urdu</div></div>
+      <div class="ngrid" id="ng"></div>
+    </div>
+
+    <nav>
+      <button class="nb on" id="nb-home" onclick="go('home')"><span class="ni">🏠</span><span class="nl">Home</span></button>
+      <button class="nb" id="nb-qaida" onclick="go('qaida')"><span class="ni">📖</span><span class="nl">Qaida</span></button>
+      <button class="nb" id="nb-duas" onclick="go('duas')"><span class="ni">🤲</span><span class="nl">Duas</span></button>
+      <button class="nb" id="nb-tasbeeh" onclick="go('tasbeeh')"><span class="ni">📿</span><span class="nl">Tasbeeh</span></button>
+      <button class="nb" id="nb-stories" onclick="go('stories')"><span class="ni">📜</span><span class="nl">Stories</span></button>
+    </nav>
+  </div>
+</div>
+
+<!-- USER PROFILE MODAL -->
+<div class="modal-ov" id="profModal" onclick="if(event.target===this)closeProfModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProfModal()">✕</button>
+    <div style="text-align:center;margin-bottom:14px;">
+      <div class="prof-pic" id="profPic">?</div>
+      <div class="prof-name" id="profName">Guest</div>
+      <div class="prof-email" id="profEmail">guest@nookids.app</div>
+    </div>
+    <div class="prof-stats">
+      <div class="prof-stat"><div class="prof-stat-n" id="ps-xp">0</div><div class="prof-stat-l">⭐ XP</div></div>
+      <div class="prof-stat"><div class="prof-stat-n" id="ps-lv">1</div><div class="prof-stat-l">🏅 Level</div></div>
+      <div class="prof-stat"><div class="prof-stat-n" id="ps-streak">1</div><div class="prof-stat-l">🔥 Days</div></div>
+    </div>
+    <div class="prof-badges">
+      <div class="prof-badges-t">🏆 Badges</div>
+      <div class="badges-grid" id="badgesGrid"></div>
+    </div>
+    <button class="prof-btn" onclick="logout()">🚪 Sign Out</button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="sov" id="sov" onclick="if(event.target===this)closeSet()">
+  <div class="span2">
+    <div class="shand"></div>
+    <div class="stit">⚙️ Settings</div>
+    <div class="ssec">🎨 Theme</div>
+    <div class="thg" id="thg"></div>
+    <div class="ssec">🔊 TTS Voice Settings</div>
+    <div id="voiceInfo" style="font-size:.7rem;color:var(--t3);margin-bottom:6px;">Detecting voices...</div>
+    <select class="vsel" id="vsel" onchange="setV(this.value)">
+      <option value="">🤖 Auto</option>
+      <optgroup label="ResponsiveVoice">
+        <option value="Arabic Male">Arabic Male 🕌</option>
+        <option value="Arabic Female">Arabic Female 🕌</option>
+        <option value="Urdu Male">Urdu Male 🇵🇰</option>
+        <option value="UK English Male">English Male 🌍</option>
+        <option value="UK English Female">English Female 🌍</option>
+      </optgroup>
+    </select>
+    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+      <button class="btn-sp" onclick="testTTS('ar-SA')" style="font-size:.72rem">🕌 Test Arabic</button>
+      <button class="btn-sp" onclick="testTTS('ur-PK')" style="font-size:.72rem">🇵🇰 Test Urdu</button>
+      <button class="btn-sp" onclick="testTTS('en-US')" style="font-size:.72rem">🌍 Test English</button>
+    </div>
+    <div style="font-size:.7rem;color:var(--sky);padding:8px;background:rgba(125,211,252,.06);border-radius:9px;margin-bottom:10px;line-height:1.6;">
+      ✅ Uses <b>ResponsiveVoice</b> — works on all Android & iOS devices without any setup needed!
+    </div>
+    <div class="ssec">Options</div>
+    <div class="srow"><label>Auto-speak on letter tap</label><label class="tog"><input type="checkbox" id="autospk" checked><span class="togsl"></span></label></div>
+  </div>
+</div>
+
+<!-- COMPLETED -->
+<div id="cpop" onclick="this.classList.remove('on')">
+  <div class="cpopbox">
+    <div class="cpope">🌟</div>
+    <div class="cpopt">مَاشَاءَ اللّٰهُ!</div>
+    <div class="cpops">33 complete! Great job! 🎉</div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// ===== STATUS BAR =====
+(function(){
+  var fill=document.getElementById('sb-fill');
+  function calc(){
+    var h=0;
+    try{var el=document.createElement('div');el.style.cssText='position:fixed;top:env(safe-area-inset-top,0px);left:0;width:1px;height:1px;';document.body.appendChild(el);h=parseInt(getComputedStyle(el).top)||0;el.remove();}catch(e){}
+    if(!h&&window.screenTop>0&&window.screenTop<200)h=window.screenTop;
+    if(!h)h=24;
+    fill.style.height=h+'px';
+    document.documentElement.style.setProperty('--sb',h+'px');
+    // fix topbar spacer
+    var tb=document.getElementById('topbar');
+    var sp=document.getElementById('topbarSpacer');
+    if(tb&&sp)setTimeout(function(){sp.style.height=(tb.offsetHeight)+'px';},100);
+  }
+  calc();setTimeout(calc,300);setTimeout(calc,800);
+})();
+
+// ===== CONSTANTS =====
+var GCID='1094346649759-q17aguin3vuel4ouefif3gdddlp2v863.apps.googleusercontent.com';
+var THEMES=[
+  {id:'emerald',e:'🌿',l:'Emerald',bg:'#0a2a18'},
+  {id:'night',e:'🌌',l:'Night',bg:'#07071a'},
+  {id:'ocean',e:'🌊',l:'Ocean',bg:'#082040'},
+  {id:'sunset',e:'🌅',l:'Sunset',bg:'#7c1a10'},
+  {id:'rose',e:'🌸',l:'Rose',bg:'#4a0d38'},
+];
+
+// ===== LETTERS DATA =====
+var LETTERS=[
+  {a:'ا',r:'Alif',u:'الف',p:'Long open "A". Like "a" in father.',f:['ا','ـا','ـا'],fn:['Alone','After','End'],w:[{a:'أُمّ',e:'Mother'},{a:'أَب',e:'Father'},{a:'اَللّٰه',e:'Allah'}]},
+  {a:'ب',r:'Ba',u:'بے',p:'"B" like book. ONE dot BELOW.',f:['بـ','ـبـ','ـب'],fn:['Start','Mid','End'],w:[{a:'بَيْت',e:'House'},{a:'بَاب',e:'Door'}]},
+  {a:'ت',r:'Ta',u:'تے',p:'"T" like top. TWO dots ABOVE.',f:['تـ','ـتـ','ـت'],fn:['Start','Mid','End'],w:[{a:'تَمْر',e:'Dates'},{a:'تَوْبَة',e:'Repentance'}]},
+  {a:'ث',r:'Tha',u:'ثے',p:'"Th" like think. THREE dots ABOVE.',f:['ثـ','ـثـ','ـث'],fn:['Start','Mid','End'],w:[{a:'ثَوْب',e:'Garment'},{a:'ثَمَر',e:'Fruit'}]},
+  {a:'ج',r:'Jeem',u:'جیم',p:'"J" like jam. ONE dot below curve.',f:['جـ','ـجـ','ـج'],fn:['Start','Mid','End'],w:[{a:'جَنَّة',e:'Paradise'},{a:'جَمَل',e:'Camel'}]},
+  {a:'ح',r:'Ha',u:'حے',p:'Breathy H — like breathing on glass. NO dot.',f:['حـ','ـحـ','ـح'],fn:['Start','Mid','End'],w:[{a:'حَمْد',e:'Praise'},{a:'حَج',e:'Hajj'}]},
+  {a:'خ',r:'Kha',u:'خے',p:'"Kh" rough like Scottish loch. ONE dot ABOVE.',f:['خـ','ـخـ','ـخ'],fn:['Start','Mid','End'],w:[{a:'خُبْز',e:'Bread'},{a:'خَيْر',e:'Good'}]},
+  {a:'د',r:'Dal',u:'دال',p:'"D" like door. Does NOT connect forward.',f:['د','ـد','ـد'],fn:['Alone','After','End'],w:[{a:'دِيْن',e:'Religion'},{a:'دُعَاء',e:'Dua'}]},
+  {a:'ذ',r:'Zal',u:'ذال',p:'"Dh" like "the". ONE dot ABOVE.',f:['ذ','ـذ','ـذ'],fn:['Alone','After','End'],w:[{a:'ذِكْر',e:'Dhikr'},{a:'ذَهَب',e:'Gold'}]},
+  {a:'ر',r:'Ra',u:'رے',p:'Rolled R like Spanish. Does NOT connect forward.',f:['ر','ـر','ـر'],fn:['Alone','After','End'],w:[{a:'رَبّ',e:'Lord'},{a:'رَحْمَة',e:'Mercy'}]},
+  {a:'ز',r:'Zay',u:'زے',p:'"Z" like zero. ONE dot ABOVE.',f:['ز','ـز','ـز'],fn:['Alone','After','End'],w:[{a:'زَكَاة',e:'Zakah'},{a:'زَيْت',e:'Oil'}]},
+  {a:'س',r:'Seen',u:'سین',p:'"S" like sun. Three wave shapes.',f:['سـ','ـسـ','ـس'],fn:['Start','Mid','End'],w:[{a:'سَلَام',e:'Peace'},{a:'سُجُود',e:'Sujood'}]},
+  {a:'ش',r:'Sheen',u:'شین',p:'"Sh" like ship. THREE dots ABOVE.',f:['شـ','ـشـ','ـش'],fn:['Start','Mid','End'],w:[{a:'شُكْر',e:'Thanks'},{a:'شَجَر',e:'Tree'}]},
+  {a:'ص',r:'Saad',u:'صاد',p:'Heavy emphatic S. Tongue flat.',f:['صـ','ـصـ','ـص'],fn:['Start','Mid','End'],w:[{a:'صَلَاة',e:'Prayer'},{a:'صَبْر',e:'Patience'}]},
+  {a:'ض',r:'Daad',u:'ضاد',p:'Heavy emphatic D. Unique to Arabic!',f:['ضـ','ـضـ','ـض'],fn:['Start','Mid','End'],w:[{a:'أَرْض',e:'Earth'},{a:'ضَوْء',e:'Light'}]},
+  {a:'ط',r:'Taa',u:'طا',p:'Heavy emphatic T.',f:['طـ','ـطـ','ـط'],fn:['Start','Mid','End'],w:[{a:'طَهَارَة',e:'Purity'},{a:'طَعَام',e:'Food'}]},
+  {a:'ظ',r:'Zaa',u:'ظا',p:'Heavy emphatic ZH. ONE dot above.',f:['ظـ','ـظـ','ـظ'],fn:['Start','Mid','End'],w:[{a:'ظُلْم',e:'Oppression'},{a:'ظِل',e:'Shade'}]},
+  {a:'ع',r:'Ain',u:'عین',p:'Deep throat squeeze — unique Arabic sound!',f:['عـ','ـعـ','ـع'],fn:['Start','Mid','End'],w:[{a:'عِلْم',e:'Knowledge'},{a:'عِبَادَة',e:'Worship'}]},
+  {a:'غ',r:'Ghain',u:'غین',p:'Like gargling. ONE dot ABOVE.',f:['غـ','ـغـ','ـغ'],fn:['Start','Mid','End'],w:[{a:'غُفْرَان',e:'Forgiveness'},{a:'غَيْب',e:'Unseen'}]},
+  {a:'ف',r:'Fa',u:'فے',p:'"F" like far. ONE dot ABOVE.',f:['فـ','ـفـ','ـف'],fn:['Start','Mid','End'],w:[{a:'فَجْر',e:'Dawn'},{a:'فَرَح',e:'Joy'}]},
+  {a:'ق',r:'Qaf',u:'قاف',p:'Deep K from very back of throat. TWO dots ABOVE.',f:['قـ','ـقـ','ـق'],fn:['Start','Mid','End'],w:[{a:'قُرْآن',e:'Quran'},{a:'قَلْب',e:'Heart'}]},
+  {a:'ك',r:'Kaf',u:'کاف',p:'Regular K like key.',f:['كـ','ـكـ','ـك'],fn:['Start','Mid','End'],w:[{a:'كِتَاب',e:'Book'},{a:'كَعْبَة',e:'Kaaba'}]},
+  {a:'ل',r:'Lam',u:'لام',p:'"L" like love.',f:['لـ','ـلـ','ـل'],fn:['Start','Mid','End'],w:[{a:'لَيْل',e:'Night'},{a:'لُطْف',e:'Kindness'}]},
+  {a:'م',r:'Meem',u:'میم',p:'"M" like moon.',f:['مـ','ـمـ','ـم'],fn:['Start','Mid','End'],w:[{a:'مَسْجِد',e:'Masjid'},{a:'مُسْلِم',e:'Muslim'}]},
+  {a:'ن',r:'Noon',u:'نون',p:'"N" like noon. ONE dot ABOVE.',f:['نـ','ـنـ','ـن'],fn:['Start','Mid','End'],w:[{a:'نُوْر',e:'Light'},{a:'نَبِيّ',e:'Prophet'}]},
+  {a:'ه',r:'Ha',u:'ہا',p:'Soft H like hello. NO dot.',f:['هـ','ـهـ','ـه'],fn:['Start','Mid','End'],w:[{a:'هُدَى',e:'Guidance'},{a:'هِلَال',e:'Crescent'}]},
+  {a:'و',r:'Waw',u:'واو',p:'"W" like world OR long "oo". Does NOT connect forward.',f:['و','ـو','ـو'],fn:['Alone','After','End'],w:[{a:'وُضُوء',e:'Wuzu'},{a:'وَقْت',e:'Time'}]},
+  {a:'ي',r:'Ya',u:'یے',p:'"Y" like yes OR long "ee". TWO dots BELOW.',f:['يـ','ـيـ','ـي'],fn:['Start','Mid','End'],w:[{a:'يَوْم',e:'Day'},{a:'يَقِيْن',e:'Certainty'}]},
+  {a:'ء',r:'Hamza',u:'ہمزہ',p:'Glottal stop — pause like in "uh-oh".',f:['ء','أ','ئ'],fn:['Alone','On Alif','On Ya'],w:[{a:'إِيْمَان',e:'Faith'},{a:'أُمَّة',e:'Nation'}]},
+];
+
+// ===== 30 LESSONS =====
+var LESSONS=[
+  {id:'L1',t:'Alphabet',a:'حُرُوفُ الْهِجَاء',u:'حروف تہجی',d:'All 29 Arabic letters',type:'letters'},
+  {id:'L2',t:'Harakat',a:'حَرَكَات',u:'زبر، زیر، پیش',d:'Short vowel marks',type:'tiles',items:[
+    {a:'بَ',r:'Ba',u:'زبر (Fatha)'},{a:'بِ',r:'Bi',u:'زیر (Kasra)'},{a:'بُ',r:'Bu',u:'پیش (Damma)'},
+    {a:'تَ',r:'Ta',u:'تَ زبر'},{a:'تِ',r:'Ti',u:'تِ زیر'},{a:'تُ',r:'Tu',u:'تُ پیش'},
+    {a:'جَ',r:'Ja',u:'جَ'},{a:'جِ',r:'Ji',u:'جِ'},{a:'جُ',r:'Ju',u:'جُ'},
+    {a:'سَ',r:'Sa',u:'سَ'},{a:'سِ',r:'Si',u:'سِ'},{a:'سُ',r:'Su',u:'سُ'},
+  ]},
+  {id:'L3',t:'Jazm',a:'جَزْم — سکون',u:'جزم (سکون)',d:'The sukoon mark — silent letter',type:'tiles',items:[
+    {a:'بْ',r:'B (Jazm)',u:'بْ جزم'},{a:'تْ',r:'T',u:'تْ'},{a:'جْ',r:'J',u:'جْ'},
+    {a:'دْ',r:'D',u:'دْ'},{a:'رْ',r:'R',u:'رْ'},{a:'سْ',r:'S',u:'سْ'},
+    {a:'لْ',r:'L',u:'لْ'},{a:'مْ',r:'M',u:'مْ'},{a:'نْ',r:'N',u:'نْ'},
+  ]},
+  {id:'L4',t:'Tanween',a:'تَنْوِيْن',u:'تنوین',d:'Nunation — double vowel marks',type:'tiles',items:[
+    {a:'بً',r:'Ban',u:'تنوین فتح'},{a:'بٍ',r:'Bin',u:'تنوین کسر'},{a:'بٌ',r:'Bun',u:'تنوین ضم'},
+    {a:'كِتَابٌ',r:'Kitaabun',u:'کتاب'},{a:'قَلَمٌ',r:'Qalamun',u:'قلم'},{a:'بَيْتٌ',r:'Baytun',u:'گھر'},
+    {a:'رَجُلٌ',r:'Rajulun',u:'آدمی'},{a:'مَسْجِدٌ',r:'Masjidun',u:'مسجد'},
+  ]},
+  {id:'L5',t:'Tashdeed',a:'تَشْدِيْد',u:'تشدید',d:'Double consonant stress',type:'tiles',items:[
+    {a:'بَّ',r:'Bba',u:'تشدید'},{a:'تَّ',r:'Tta',u:'تشدید'},{a:'سَّ',r:'Ssa',u:'تشدید'},
+    {a:'رَبَّ',r:'Rabba',u:'رَبَّ'},{a:'اِنَّ',r:'Inna',u:'بے شک'},
+    {a:'مَكَّة',r:'Makkah',u:'مکہ'},{a:'اَللّٰهُ',r:'Allah',u:'اللہ'},{a:'مُحَمَّد',r:'Muhammad',u:'محمد'},
+  ]},
+  {id:'L6',t:'Madd',a:'حُرُوفُ الْمَدّ',u:'مد کے حروف',d:'Long vowels — Alif, Waw, Ya',type:'tiles',items:[
+    {a:'بَا',r:'Baa',u:'لمبا الف'},{a:'بِيْ',r:'Bee',u:'لمبی یا'},{a:'بُوْ',r:'Boo',u:'لمبی واو'},
+    {a:'نُوْر',r:'Noor',u:'نور'},{a:'كِتَاب',r:'Kitaab',u:'کتاب'},{a:'صِيَام',r:'Siyaam',u:'روزہ'},
+    {a:'قُرْآن',r:'Quran',u:'قرآن'},{a:'اِيْمَان',r:'Iman',u:'ایمان'},
+  ]},
+  {id:'L7',t:'Leen',a:'حُرُوفُ اللِّيْن',u:'حروف لین',d:'Soft letters — Waw and Ya with Fatha',type:'tiles',items:[
+    {a:'بَوْ',r:'Baw',u:'بَوْ'},{a:'بَيْ',r:'Bay',u:'بَيْ'},
+    {a:'خَوْف',r:'Khawf',u:'خوف'},{a:'بَيْت',r:'Bayt',u:'گھر'},
+    {a:'لَيْلَة',r:'Laylah',u:'رات'},{a:'صَوْت',r:'Sawt',u:'آواز'},
+    {a:'عَيْن',r:'Ayn',u:'آنکھ'},{a:'يَوْم',r:'Yawm',u:'دن'},
+  ]},
+  {id:'L8',t:'Qalqalah',a:'قَلْقَلَة',u:'قلقلہ',d:'Echoing letters: ق ط ب ج د',type:'tiles',items:[
+    {a:'قْ',r:'Qaf',u:'قلقلہ قاف'},{a:'طْ',r:'Taa',u:'قلقلہ طا'},
+    {a:'بْ',r:'Ba',u:'قلقلہ بے'},{a:'جْ',r:'Jeem',u:'قلقلہ جیم'},{a:'دْ',r:'Dal',u:'قلقلہ دال'},
+    {a:'يَطْبَع',r:'Yatba',u:'یطبع'},{a:'اَقْرَب',r:'Aqrab',u:'اقرب'},{a:'وَجَد',r:'Wajad',u:'وجد'},
+  ]},
+  {id:'L9',t:'Noon Rules',a:'اَحْكَامُ النُّوْن',u:'نون کے احکام',d:'Izhar, Idgham, Ikhfa, Iqlab',type:'rules',items:[
+    {a:'اِظْهَار',r:'Izhar — Clear',u:'اظہار',n:'Before: ء ه ع ح غ خ'},
+    {a:'اِدْغَام',r:'Idgham — Merge',u:'ادغام',n:'Before: ي ن م و ل ر'},
+    {a:'اِخْفَاء',r:'Ikhfa — Hidden',u:'اخفاء',n:'Before: 15 specific letters'},
+    {a:'اِقْلَاب',r:'Iqlab — Change to Meem',u:'اقلاب',n:'Before: ب only'},
+  ]},
+  {id:'L10',t:'Meem Rules',a:'اَحْكَامُ الْمِيْم',u:'میم کے احکام',d:'Meem Sakin rules',type:'rules',items:[
+    {a:'اِدْغَام شَفَوِي',r:'Idgham Shafawi',u:'ادغام شفوی',n:'Meem before Meem'},
+    {a:'اِخْفَاء شَفَوِي',r:'Ikhfa Shafawi',u:'اخفاء شفوی',n:'Meem before Ba'},
+    {a:'اِظْهَار شَفَوِي',r:'Izhar Shafawi',u:'اظہار شفوی',n:'Meem before all other letters'},
+  ]},
+  {id:'L11',t:'Waqf',a:'عَلَامَاتُ الْوَقْف',u:'وقف کی علامات',d:'Stopping signs in Quran',type:'rules',items:[
+    {a:'مـ',r:'Waqf Laazim — Must stop',u:'وقف لازم — رکنا ضروری',n:'م sign'},
+    {a:'لا',r:'Waqf Mamnu — No stop',u:'وقف ممنوع — نہ رکو',n:'لا sign'},
+    {a:'ج',r:'Waqf Jaiz — May stop',u:'وقف جائز — رک سکتے ہیں',n:'ج sign'},
+    {a:'ط',r:'Waqf Mutlaq — Full stop',u:'وقف مطلق — مکمل وقفہ',n:'ط sign'},
+    {a:'ص',r:'Waqf Murakhkhas — Permissible',u:'وقف مرخص',n:'ص sign'},
+  ]},
+  {id:'L12',t:'Al + Sun Moon',a:'لَام الشَّمْسِيَّة وَالْقَمَرِيَّة',u:'لام شمسی اور قمری',d:'Sun and Moon letters rule',type:'rules',items:[
+    {a:'اَلشَّمْس',r:'Ash-Shams — Sun letters',u:'لام شمسی — ل مدغم',n:'14 sun letters: ت ث د ذ ر ز س ش ص ض ط ظ ل ن'},
+    {a:'اَلْقَمَر',r:'Al-Qamar — Moon letters',u:'لام قمری — ل واضح',n:'14 moon letters: ء ب ج ح خ ع غ ف ق ك م ه و ي'},
+    {a:'اَلنَّبِيّ',r:'An-Nabi (Sun)',u:'النبی — لام شمسی'},{a:'اَلْكِتَاب',r:'Al-Kitab (Moon)',u:'الکتاب — لام قمری'},
+  ]},
+  {id:'L13',t:'Practice 1',a:'تَدْرِيْب ١',u:'مشق — اول',d:'Basic Islamic words',type:'tiles',items:[
+    {a:'بِسْمِ اللّٰهِ',r:'Bismillah',u:'اللہ کے نام سے'},
+    {a:'اَلْحَمْدُ لِلّٰهِ',r:'Alhamdulillah',u:'تعریفیں اللہ کے لیے'},
+    {a:'اَللّٰهُ اَكْبَرُ',r:'Allahu Akbar',u:'اللہ سب سے بڑا'},
+    {a:'سُبْحَانَ اللّٰهِ',r:'SubhanAllah',u:'اللہ پاک ہے'},
+    {a:'مَاشَاءَ اللّٰهُ',r:'MashaAllah',u:'جو اللہ نے چاہا'},
+    {a:'اِنْ شَاءَ اللّٰهُ',r:'InshAllah',u:'اگر اللہ نے چاہا'},
+  ]},
+  {id:'L14',t:'Practice 2',a:'تَدْرِيْب ٢',u:'مشق — دوم',d:'More Islamic phrases',type:'tiles',items:[
+    {a:'لَا اِلٰهَ اِلَّا اللّٰهُ',r:'La Ilaha IllAllah',u:'اللہ کے سوا کوئی معبود نہیں'},
+    {a:'اَسْتَغْفِرُ اللّٰهَ',r:'Astaghfirullah',u:'اللہ سے معافی'},
+    {a:'جَزَاكَ اللّٰهُ خَيْرًا',r:'JazakAllahu Khayran',u:'اللہ بہتر بدلہ دے'},
+    {a:'اَعُوْذُ بِاللّٰهِ',r:'Auzubillah',u:'اللہ کی پناہ'},
+    {a:'تَبَارَكَ اللّٰهُ',r:'Tabarakallah',u:'اللہ بابرکت ہے'},
+    {a:'حَسْبُنَا اللّٰهُ',r:'Hasbunallah',u:'اللہ ہمارے لیے کافی ہے'},
+  ]},
+  {id:'L15',t:'Al-Fatiha',a:'سُوْرَةُ الْفَاتِحَة',u:'سورۃ الفاتحہ',d:'The Opening Chapter',type:'surahs',items:[
+    {n:'Al-Fatiha',a:'اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَ ۝ اَلرَّحْمٰنِ الرَّحِيْمِ ۝ مٰلِكِ يَوْمِ الدِّيْنِ ۝ اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُ ۝ اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ',u:'تمام تعریفیں اللہ کے لیے — رحمان رحیم — روزِ جزا کے مالک — ہم تجھی کی عبادت کرتے ہیں — سیدھا راستہ دکھا',e:'All praise to Allah, Lord of worlds, the Most Merciful, Master of Judgment Day. You alone we worship, You alone we ask for help. Guide us to the straight path.'},
+  ]},
+  {id:'L16',t:'Al-Ikhlas',a:'سُوْرَةُ الْاِخْلَاص',u:'سورۃ الاخلاص',d:'Pure monotheism',type:'surahs',items:[
+    {n:'Al-Ikhlas',a:'قُلْ هُوَ اللّٰهُ اَحَدٌ ۝ اَللّٰهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُوْلَدْ ۝ وَلَمْ يَكُنْ لَّهُ كُفُوًا اَحَدٌ',u:'کہو: اللہ ایک ہے — بے نیاز — نہ جنا نہ جنا گیا — کوئی اس کا ہمسر نہیں',e:'Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born. And there is none comparable to Him.'},
+  ]},
+  {id:'L17',t:'Al-Falaq',a:'سُوْرَةُ الْفَلَق',u:'سورۃ الفلق',d:'Seeking refuge from evil',type:'surahs',items:[
+    {n:'Al-Falaq',a:'قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفّٰثٰتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَ',u:'کہو: صبح کے رب کی پناہ — اس کی مخلوق کے شر سے — رات کے اندھیرے سے — جادوگروں سے — حاسد کے شر سے',e:'Say: I seek refuge in the Lord of Daybreak from all evil He created, from the darkness of night, from those who blow on knots, and from the envier when he envies.'},
+  ]},
+  {id:'L18',t:'An-Naas',a:'سُوْرَةُ النَّاس',u:'سورۃ الناس',d:'Seeking refuge from whispers',type:'surahs',items:[
+    {n:'An-Naas',a:'قُلْ اَعُوْذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ اِلٰهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِ',u:'کہو: لوگوں کے رب — بادشاہ — معبود کی پناہ — وسوسہ ڈالنے والے شر سے — جو لوگوں کے دلوں میں وسوسہ ڈالتا ہے',e:'Say: I seek refuge in the Lord of mankind, the Sovereign of mankind, the God of mankind, from the whisperer who whispers in the hearts of people.'},
+  ]},
+  {id:'L19',t:'Al-Asr',a:'سُوْرَةُ الْعَصْر',u:'سورۃ العصر',d:'The oath of time',type:'surahs',items:[
+    {n:'Al-Asr',a:'وَالْعَصْرِ ۝ اِنَّ الْاِنْسَانَ لَفِيْ خُسْرٍ ۝ اِلَّا الَّذِيْنَ اٰمَنُوْا وَعَمِلُوا الصّٰلِحٰتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ',u:'زمانے کی قسم — بے شک انسان گھاٹے میں ہے — سوائے ان کے جو ایمان لائے، نیک اعمال کیے، حق کی وصیت کی، صبر کی وصیت کی',e:'By time, indeed mankind is in loss, except those who believe, do righteous deeds, urge one another to truth, and urge one another to patience.'},
+  ]},
+  {id:'L20',t:'Al-Kawthar',a:'سُوْرَةُ الْكَوْثَر',u:'سورۃ الکوثر',d:'The abundance',type:'surahs',items:[
+    {n:'Al-Kawthar',a:'اِنَّا اَعْطَيْنٰكَ الْكَوْثَرَ ۝ فَصَلِّ لِرَبِّكَ وَانْحَرْ ۝ اِنَّ شَانِئَكَ هُوَ الْاَبْتَرُ',u:'ہم نے آپ کو کوثر دی — اپنے رب کے لیے نماز پڑھیں اور قربانی دیں — آپ کا دشمن ہی بے نام و نشان ہے',e:'We have granted you Al-Kawthar. So pray to your Lord and sacrifice. Indeed your enemy is the one cut off.'},
+  ]},
+  {id:'L21',t:'Al-Fil',a:'سُوْرَةُ الْفِيْل',u:'سورۃ الفیل',d:'The Companions of the Elephant',type:'surahs',items:[
+    {n:'Al-Fil',a:'اَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِاَصْحٰبِ الْفِيْلِ ۝ اَلَمْ يَجْعَلْ كَيْدَهُمْ فِيْ تَضْلِيْلٍ ۝ وَاَرْسَلَ عَلَيْهِمْ طَيْرًا اَبَابِيْلَ',u:'کیا آپ نے نہیں دیکھا کہ آپ کے رب نے ہاتھی والوں کا کیا کیا — ان کی تدبیر کو غلط نہ کر دیا — ان پر ابابیل پرندے بھیجے',e:'Have you not seen how your Lord dealt with the Companions of the Elephant? Did He not make their plan go astray? He sent against them birds in flocks.'},
+  ]},
+  {id:'L22',t:'Al-Quraysh',a:'سُوْرَةُ قُرَيْش',u:'سورۃ قریش',d:'The Quraysh tribe',type:'surahs',items:[
+    {n:'Al-Quraysh',a:'لِاِيْلٰفِ قُرَيْشٍ ۝ اِيْلٰفِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ ۝ فَلْيَعْبُدُوْا رَبَّ هٰذَا الْبَيْتِ',u:'قریش کی وجہ سے — سردی اور گرمی کے سفروں کی عادت — پس اس گھر کے رب کی عبادت کریں',e:'For the accustomed security of the Quraysh, their accustomed security in winter and summer journeys, let them worship the Lord of this House.'},
+  ]},
+  {id:'L23',t:'Al-Maun',a:'سُوْرَةُ الْمَاعُوْن',u:'سورۃ الماعون',d:'Small acts of kindness',type:'surahs',items:[
+    {n:'Al-Maun',a:'اَرَاَيْتَ الَّذِيْ يُكَذِّبُ بِالدِّيْنِ ۝ فَذٰلِكَ الَّذِيْ يَدُعُّ الْيَتِيْمَ ۝ وَلَا يَحُضُّ عَلٰى طَعَامِ الْمِسْكِيْنِ',u:'کیا تو نے اسے دیکھا جو دین کو جھٹلاتا ہے — وہی تو ہے جو یتیم کو دھکا دیتا ہے — اور مسکین کو کھانا دینے پر نہیں اکساتا',e:'Have you seen the one who denies the Judgment? That is the one who repels the orphan and does not encourage feeding the poor.'},
+  ]},
+  {id:'L24',t:'Al-Humazah',a:'سُوْرَةُ الْهُمَزَة',u:'سورۃ الہمزہ',d:'The slanderer',type:'surahs',items:[
+    {n:'Al-Humazah',a:'وَيْلٌ لِّكُلِّ هُمَزَةٍ لُّمَزَةٍ ۝ الَّذِيْ جَمَعَ مَالًا وَّعَدَّدَهُ ۝ يَحْسَبُ اَنَّ مَالَهُ اَخْلَدَهُ',u:'ہر طعنہ دینے والے اور چغلی کھانے والے کے لیے ہلاکت — جس نے مال جمع کیا اور گنتا رہا — وہ سمجھتا ہے کہ اس کا مال اسے ہمیشہ رکھے گا',e:'Woe to every scorner and mocker who has gathered wealth and counted it. He thinks that his wealth will make him immortal.'},
+  ]},
+  {id:'L25',t:'At-Takathur',a:'سُوْرَةُ التَّكَاثُر',u:'سورۃ التکاثر',d:'The competition in worldly increase',type:'surahs',items:[
+    {n:'At-Takathur',a:'اَلْهٰكُمُ التَّكَاثُرُ ۝ حَتّٰى زُرْتُمُ الْمَقَابِرَ ۝ كَلَّا سَوْفَ تَعْلَمُوْنَ',u:'تمہیں زیادتی کی طلب نے غافل کر دیا — یہاں تک کہ تم نے قبریں دیکھیں — ہرگز نہیں! عنقریب تمہیں معلوم ہو جائے گا',e:'Competition in worldly increase diverted you until you visited the graveyards. No! You are going to know.'},
+  ]},
+  {id:'L26',t:'Al-Qariah',a:'سُوْرَةُ الْقَارِعَة',u:'سورۃ القارعہ',d:'The Striking Calamity',type:'surahs',items:[
+    {n:'Al-Qariah',a:'اَلْقَارِعَةُ ۝ مَا الْقَارِعَةُ ۝ وَمَا اَدْرٰكَ مَا الْقَارِعَةُ ۝ يَوْمَ يَكُوْنُ النَّاسُ كَالْفَرَاشِ الْمَبْثُوْثِ',u:'قیامت — قیامت کیا ہے — اور آپ کو کیا معلوم کہ قیامت کیا ہے — جس دن لوگ بکھرے ہوئے پروانوں کی طرح ہوں گے',e:'The Striking Calamity! What is the Striking Calamity? And what can make you know what the Striking Calamity is? It is the Day when people will be like scattered moths.'},
+  ]},
+  {id:'L27',t:'Az-Zalzalah',a:'سُوْرَةُ الزَّلْزَلَة',u:'سورۃ الزلزلہ',d:'The Earthquake',type:'surahs',items:[
+    {n:'Az-Zalzalah',a:'اِذَا زُلْزِلَتِ الْاَرْضُ زِلْزَالَهَا ۝ وَاَخْرَجَتِ الْاَرْضُ اَثْقَالَهَا ۝ فَمَنْ يَّعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَّرَهُ',u:'جب زمین اپنے کپکپاہٹ سے کپکپائی — اور زمین نے اپنا بوجھ باہر نکالا — جس نے ذرہ برابر نیکی کی وہ اسے دیکھے گا',e:'When the earth is shaken with its earthquake and the earth discharges its burdens. Whoever does an atom\'s weight of good will see it.'},
+  ]},
+  {id:'L28',t:'Al-Bayyinah',a:'سُوْرَةُ الْبَيِّنَة (آغاز)',u:'سورۃ البینہ (شروع)',d:'Clear evidence — first verses',type:'surahs',items:[
+    {n:'Al-Bayyinah (start)',a:'لَمْ يَكُنِ الَّذِيْنَ كَفَرُوْا مِنْ اَهْلِ الْكِتٰبِ وَالْمُشْرِكِيْنَ مُنْفَكِّيْنَ حَتّٰى تَاْتِيَهُمُ الْبَيِّنَةُ',u:'جن لوگوں نے کفر کیا اہلِ کتاب اور مشرکین میں سے وہ باز آنے والے نہ تھے جب تک ان کے پاس واضح دلیل نہ آئے',e:'Those who disbelieved among the People of the Scripture and the polytheists were not to be parted until there came to them clear evidence.'},
+  ]},
+  {id:'L29',t:'Al-Qadr',a:'سُوْرَةُ الْقَدْر',u:'سورۃ القدر',d:'The Night of Power',type:'surahs',items:[
+    {n:'Al-Qadr',a:'اِنَّا اَنْزَلْنٰهُ فِيْ لَيْلَةِ الْقَدْرِ ۝ وَمَا اَدْرٰكَ مَا لَيْلَةُ الْقَدْرِ ۝ لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ اَلْفِ شَهْرٍ',u:'ہم نے اسے شبِ قدر میں نازل کیا — اور آپ کو کیا معلوم شبِ قدر کیا ہے — شبِ قدر ہزار مہینوں سے بہتر ہے',e:'We sent it down on the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months.'},
+  ]},
+  {id:'L30',t:'Tajweed Basics',a:'اَسَاسِيَّاتُ التَّجْوِيْد',u:'تجوید کی بنیادیں',d:'Basic Tajweed rules summary',type:'rules',items:[
+    {a:'اِسْتِعَاذَة',r:'Taawwudh — Before reading',u:'اعوذ باللہ — شروع میں',n:'Say: أعوذ بالله من الشيطان الرجيم'},
+    {a:'بَسْمَلَة',r:'Bismillah — Start of surah',u:'بسم اللہ — ہر سورۃ کے شروع میں',n:'Except between Anfal and Tawbah'},
+    {a:'تَرْتِيْل',r:'Tarteel — Slow and clear',u:'ترتیل — آہستہ اور واضح',n:'Allah says: recite with tarteel'},
+    {a:'تَجْوِيْد',r:'Tajweed — Beautiful recitation',u:'تجوید — خوبصورت تلاوت',n:'Science of proper Quran recitation'},
+  ]},
+];
+
+// ===== 100+ DUAS =====
+var DCA=['Daily','Morning','Evening','Eating','Sleep','Travel','Learning','Protection','Masjid','Wuzu','Health','Family','Ramzan','Hajj','Death'];
+var DUAS={
+  Daily:[
+    {n:'Morning Greeting',nu:'صبح کی دعا',w:'Upon waking',a:'اَلْحَمْدُ لِلّٰهِ الَّذِيْ اَحْيَانَا بَعْدَمَا اَمَاتَنَا',u:'تعریف اللہ کی جس نے مجھے مرنے کے بعد زندہ کیا',t:'Alhamdulillahil-lathee ahyana baada ma amatana',e:'All praise to Allah who gave us life after having caused us to die.'},
+    {n:'Dua for Parents',nu:'والدین کے لیے',w:'Daily',a:'رَبِّ اغْفِرْ لِيْ وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِيْ صَغِيْرًا',u:'اے رب! مجھے اور والدین کو معاف فرما اور رحم کر',t:'Rabbi ghfir li wa li walidayya warhamhuma',e:'O Lord! Forgive me and my parents and have mercy on them as they raised me.'},
+    {n:'Protection (3x)',nu:'حفاظت',w:'3x morning & evening',a:'بِسْمِ اللّٰهِ الَّذِيْ لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ',u:'اللہ کے نام سے جس کے ساتھ کوئی نقصان نہیں',t:'Bismillahil-lathee la yadurru ma asmihi shay',e:'In Allah\'s name with which nothing can cause harm.'},
+    {n:'Dua for Good in World & Hereafter',nu:'دنیا و آخرت کی بھلائی',w:'Daily',a:'رَبَّنَا اٰتِنَا فِي الدُّنْيَا حَسَنَةً وَّفِي الْاٰخِرَةِ حَسَنَةً وَّقِنَا عَذَابَ النَّارِ',u:'اے رب! دنیا میں بھلائی دے، آخرت میں بھلائی دے اور آگ کے عذاب سے بچا',t:'Rabbana atina fid-dunya hasanah wa fil-akhirati hasanah',e:'Our Lord! Give us good in this world and good in the Hereafter and protect us from the Fire.'},
+    {n:'Dua for Gratitude',nu:'شکر کی دعا',w:'After blessings',a:'اَللّٰهُمَّ اَعِنِّيْ عَلٰى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ',u:'اے اللہ! اپنے ذکر، شکر اور بہترین عبادت پر میری مدد فرما',t:'Allahumma ainni ala zikrika wa shukrika wa husni ibadatik',e:'O Allah! Help me to remember You, be grateful to You, and worship You well.'},
+  ],
+  Morning:[
+    {n:'Morning Dua (complete)',nu:'صبح کی مکمل دعا',w:'Every morning',a:'اَصْبَحْنَا وَاَصْبَحَ الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ',u:'ہم نے صبح کی اور سلطنت اللہ کی ہے',t:'Asbahna wa asbahal mulku lillah',e:'We have reached the morning and at this very time the kingdom belongs to Allah.'},
+    {n:'Morning Taawwudh',nu:'صبح کی پناہ',w:'3x every morning',a:'اَعُوْذُ بِاللّٰهِ السَّمِيْعِ الْعَلِيْمِ مِنَ الشَّيْطَانِ الرَّجِيْمِ',u:'میں سننے والے، جاننے والے اللہ کی پناہ مانگتا ہوں شیطان سے',t:'Authu billahis-samil-aleem minash-shaytanir-rajeem',e:'I seek refuge with Allah the All-Hearing, All-Knowing from the accursed Shaytan.'},
+    {n:'Morning Salawat',nu:'صبح کا درود',w:'Every morning',a:'اَللّٰهُمَّ صَلِّ عَلٰى مُحَمَّدٍ وَّعَلٰى آلِ مُحَمَّدٍ',u:'اے اللہ! محمد ﷺ پر اور ان کی آل پر درود بھیج',t:'Allahumma salli ala Muhammad wa ala aali Muhammad',e:'O Allah! Send blessings upon Muhammad and upon the family of Muhammad.'},
+    {n:'Morning Tawakkul',nu:'صبح کا توکل',w:'When leaving home in morning',a:'بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ لَا حَوْلَ وَلَا قُوَّةَ اِلَّا بِاللّٰهِ',u:'اللہ کے نام سے، اللہ پر بھروسہ، کوئی طاقت نہیں سوائے اللہ کے',t:'Bismillah tawakkaltu alallah la hawla wa la quwwata illa billah',e:'In Allah\'s name, I trust in Allah. There is no power except with Allah.'},
+    {n:'Sayyidul Istighfar (morning)',nu:'سید الاستغفار',w:'Every morning',a:'اَللّٰهُمَّ اَنْتَ رَبِّيْ لَا اِلٰهَ اِلَّا اَنْتَ خَلَقْتَنِيْ وَاَنَا عَبْدُكَ',u:'اے اللہ! تو میرا رب ہے، تیرے سوا کوئی معبود نہیں، تو نے مجھے بنایا اور میں تیرا بندہ ہوں',t:'Allahumma anta rabbi la ilaha illa anta khalaqtani wa ana abduk',e:'O Allah! You are my Lord, there is no deity but You, You created me and I am Your servant.'},
+  ],
+  Evening:[
+    {n:'Evening Dua',nu:'شام کی دعا',w:'In the evening',a:'اَمْسَيْنَا وَاَمْسَى الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ',u:'ہم نے شام کی اور سلطنت اللہ کی ہے',t:'Amsayna wa amsal mulku lillah',e:'We have reached the evening and the kingdom belongs to Allah.'},
+    {n:'Evening Protection',nu:'شام کی حفاظت',w:'3x every evening',a:'اَعُوْذُ بِكَلِمَاتِ اللّٰهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ',u:'اللہ کے مکمل کلمات سے اس کی مخلوق کے شر سے پناہ',t:'Authu bi kalimatillahit-tammati min sharri ma khalaq',e:'I seek refuge in Allah\'s perfect words from the evil of what He created.'},
+    {n:'Evening Forgiveness',nu:'شام کی مغفرت',w:'Evening',a:'اَللّٰهُمَّ اِنِّيْ اَمْسَيْتُ اُشْهِدُكَ وَاُشْهِدُ حَمَلَةَ عَرْشِكَ',u:'اے اللہ! میں شام کو تجھے اور عرش اٹھانے والوں کو گواہ بناتا ہوں',t:'Allahumma inni amsaytu ushiduka wa ushidu hamalata arshik',e:'O Allah! I bear witness by you and the bearers of Your Throne.'},
+    {n:'Ayat-ul-Kursi (evening)',nu:'آیۃ الکرسی',w:'Every evening',a:'اَللّٰهُ لَا اِلٰهَ اِلَّا هُوَ الْحَيُّ الْقَيُّوْمُ لَا تَاْخُذُهُ سِنَةٌ وَّلَا نَوْمٌ',u:'اللہ — اس کے سوا معبود نہیں — زندہ، قائم — نہ اونگھ نہ نیند',t:'Allahu la ilaha illa huwal hayyul qayyum',e:'Allah – no deity but Him, Ever-Living, Sustaining. No drowsiness nor sleep overtakes Him.'},
+  ],
+  Eating:[
+    {n:'Before Eating',nu:'کھانے سے پہلے',w:'Before every meal',a:'بِسْمِ اللّٰهِ وَعَلٰى بَرَكَةِ اللّٰهِ',u:'اللہ کے نام سے اور اللہ کی برکت سے',t:'Bismillahi wa ala barakatillah',e:'In the name of Allah and with His blessings.'},
+    {n:'After Eating',nu:'کھانے کے بعد',w:'After every meal',a:'اَلْحَمْدُ لِلّٰهِ الَّذِيْ اَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مِنَ الْمُسْلِمِيْنَ',u:'تعریفیں اللہ کے لیے جس نے کھلایا پلایا اور مسلمان بنایا',t:'Alhamdulillahil-lathee atamana wa saqana',e:'All praise to Allah who fed us, gave us drink and made us Muslims.'},
+    {n:'Forgot Bismillah',nu:'بھول جانے پر',w:'If you forgot at start',a:'بِسْمِ اللّٰهِ فِيْ اَوَّلِهِ وَآخِرِهِ',u:'اللہ کے نام سے — شروع اور آخر میں',t:'Bismillahi fi awwalihi wa akhirihi',e:'In Allah\'s name at its beginning and at its end.'},
+    {n:'Dua for Host',nu:'مہمان کی دعا',w:'After eating at someone\'s home',a:'اَللّٰهُمَّ اَطْعِمْ مَنْ اَطْعَمَنِيْ وَاسْقِ مَنْ سَقَانِيْ',u:'اے اللہ! جس نے مجھے کھلایا اسے کھلا اور جس نے پلایا اسے پلا',t:'Allahumma atim man atamani wasqi man saqani',e:'O Allah! Feed the one who fed me and give drink to the one who gave me drink.'},
+    {n:'Before Drinking Water',nu:'پانی پینے سے پہلے',w:'Before drinking',a:'بِسْمِ اللّٰهِ',u:'اللہ کے نام سے',t:'Bismillah',e:'In the name of Allah.'},
+  ],
+  Sleep:[
+    {n:'Before Sleeping',nu:'سونے سے پہلے',w:'When lying down',a:'بِاسْمِكَ اللّٰهُمَّ اَمُوْتُ وَاَحْيَا',u:'اے اللہ! تیرے نام سے مرتا اور جیتا ہوں',t:'Bismika Allahumma amootu wa ahya',e:'In Your name O Allah, I die and I live.'},
+    {n:'Ayat-ul-Kursi (sleep)',nu:'سونے کی آیۃ الکرسی',w:'Every night before sleep',a:'اَللّٰهُ لَا اِلٰهَ اِلَّا هُوَ الْحَيُّ الْقَيُّوْمُ',u:'اللہ — اس کے سوا معبود نہیں',t:'Allahu la ilaha illa huwal hayyul qayyum',e:'Allah – no deity except Him, the Ever-Living, the Self-Subsisting.'},
+    {n:'After Waking',nu:'جاگنے کی دعا',w:'Right after waking',a:'اَلْحَمْدُ لِلّٰهِ الَّذِيْ عَافَانِيْ فِيْ جَسَدِيْ وَرَدَّ عَلَيَّ رُوْحِيْ',u:'تعریفیں اللہ کے لیے جس نے جسمانی عافیت دی اور روح واپس کی',t:'Alhamdulillahil-lathee afaanee fi jasadi',e:'All praise to Allah who restored health to my body and returned my soul.'},
+    {n:'Dua to Sleep Well',nu:'اچھی نیند کی دعا',w:'Before sleep',a:'اَللّٰهُمَّ قِنِيْ عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ',u:'اے اللہ! جس دن اپنے بندوں کو اٹھائے مجھے اپنے عذاب سے بچانا',t:'Allahumma qini azabaka yawma tabathu ibadak',e:'O Allah! Protect me from Your punishment on the Day You resurrect Your servants.'},
+    {n:'Surah Al-Kafirun before sleep',nu:'سونے سے پہلے سورۃ الکافرون',w:'Before sleep',a:'قُلْ يٰاَيُّهَا الْكٰفِرُوْنَ ۝ لَا اَعْبُدُ مَا تَعْبُدُوْنَ',u:'کہو: اے کافرو! میں اس کی عبادت نہیں کرتا جس کی تم عبادت کرتے ہو',t:'Qul ya ayyuhal-kafirun la abodu ma tabudun',e:'Say: O disbelievers! I do not worship what you worship.'},
+  ],
+  Travel:[
+    {n:'Starting a Journey',nu:'سفر کی دعا',w:'When starting travel',a:'سُبْحَانَ الَّذِيْ سَخَّرَ لَنَا هٰذَا وَمَا كُنَّا لَهُ مُقْرِنِيْنَ',u:'پاک ہے وہ جس نے یہ ہمارے لیے مسخر کیا',t:'Subhanal-lathee sakhkhara lana hatha',e:'Glory to Him who subjected this to us.'},
+    {n:'Entering Home',nu:'گھر میں داخل ہونا',w:'When entering home',a:'بِسْمِ اللّٰهِ وَلَجْنَا وَبِسْمِ اللّٰهِ خَرَجْنَا',u:'اللہ کے نام سے داخل ہوئے اور نکلے',t:'Bismillahi walajna wa bismillahi kharajna',e:'In Allah\'s name we enter and in Allah\'s name we leave.'},
+    {n:'Leaving Home',nu:'گھر سے نکلنا',w:'When leaving home',a:'بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ',u:'اللہ کے نام سے، اللہ پر بھروسہ',t:'Bismillahi tawakkaltu alallah',e:'In Allah\'s name, I trust in Allah.'},
+    {n:'Entering a City',nu:'شہر میں داخل ہونا',w:'When entering a new city',a:'اَللّٰهُمَّ بَارِكْ لَنَا فِيْهَا',u:'اے اللہ! اس میں ہمارے لیے برکت دے',t:'Allahumma barik lana fiha',e:'O Allah! Bless us in it.'},
+    {n:'During Rain',nu:'بارش کے وقت',w:'When it rains',a:'اَللّٰهُمَّ صَيِّبًا نَافِعًا',u:'اے اللہ! فائدہ مند بارش',t:'Allahumma sayyiban nafia',e:'O Allah! A beneficial downpour.'},
+  ],
+  Learning:[
+    {n:'Before Study',nu:'پڑھائی سے پہلے',w:'Before studying',a:'رَبِّ زِدْنِيْ عِلْمًا',u:'اے رب! علم بڑھا',t:'Rabbi zidni ilma',e:'O Lord! Increase me in knowledge.'},
+    {n:'For Difficulty',nu:'مشکل کے لیے',w:'When something is hard',a:'رَبِّ اشْرَحْ لِيْ صَدْرِيْ وَيَسِّرْ لِيْ اَمْرِيْ',u:'سینہ کھول دے اور کام آسان کر',t:'Rabbish rahli sadri wa yassir li amri',e:'O Lord! Expand my chest and ease my task.'},
+    {n:'After Studying',nu:'پڑھنے کے بعد',w:'After lessons',a:'سُبْحَانَكَ لَا عِلْمَ لَنَا اِلَّا مَا عَلَّمْتَنَا',u:'تو پاک ہے — صرف وہی علم جو تو نے سکھایا',t:'Subhanaka la ilma lana illa ma allamtana',e:'Glory to You! We have no knowledge except what You taught us.'},
+    {n:'Dua for Understanding',nu:'سمجھ کے لیے',w:'When confused',a:'اَللّٰهُمَّ فَقِّهْنِيْ فِي الدِّيْنِ',u:'اے اللہ! مجھے دین میں سمجھ دے',t:'Allahumma faqqihni fid-deen',e:'O Allah! Give me understanding in the religion.'},
+    {n:'Dua for Memory',nu:'یادداشت کے لیے',w:'Before memorizing',a:'رَبِّ لَا تَذَرْنِيْ فَرْدًا وَّاَنْتَ خَيْرُ الْوَارِثِيْنَ',u:'اے رب! مجھے اکیلا نہ چھوڑ اور تو بہترین وارث ہے',t:'Rabbi la tazarni fardan wa anta khayrul warithin',e:'O Lord! Do not leave me alone, and You are the best of inheritors.'},
+  ],
+  Protection:[
+    {n:'Evil Eye Protection',nu:'نظرِ بد',w:'For protection',a:'اَعُوْذُ بِكَلِمَاتِ اللّٰهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ',u:'اللہ کے کلمات سے ہر شیطان سے پناہ',t:'Authu bi kalimatillahit-tammah',e:'I seek refuge in Allah\'s perfect words from every devil.'},
+    {n:'Before Toilet',nu:'بیت الخلاء',w:'Before entering toilet',a:'اَللّٰهُمَّ اِنِّيْ اَعُوْذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',u:'ناپاک جنوں سے پناہ',t:'Allahumma inni authu bika minal khubuthi wal khabaith',e:'O Allah! I seek refuge in You from evil jinn.'},
+    {n:'After Toilet',nu:'بیت الخلاء کے بعد',w:'After leaving toilet',a:'غُفْرَانَكَ',u:'تیری مغفرت',t:'Ghufraanak',e:'I seek Your forgiveness.'},
+    {n:'Against Anxiety',nu:'پریشانی کے خلاف',w:'When feeling anxious or sad',a:'اَللّٰهُمَّ اِنِّيْ اَعُوْذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ',u:'اے اللہ! غم اور پریشانی سے پناہ',t:'Allahumma inni authu bika minal hammi wal hazan',e:'O Allah! I seek refuge in You from grief and sorrow.'},
+    {n:'Dua of Yunus (AS)',nu:'دعائے یونس',w:'In extreme difficulty',a:'لَا اِلٰهَ اِلَّا اَنْتَ سُبْحَانَكَ اِنِّيْ كُنْتُ مِنَ الظَّالِمِيْنَ',u:'تیرے سوا کوئی معبود نہیں، پاک ہے تو، بے شک میں ظالموں میں سے تھا',t:'La ilaha illa anta subhanaka inni kuntu minaz-zalimeen',e:'There is no deity except You; exalted are You. I was indeed of the wrongdoers.'},
+  ],
+  Masjid:[
+    {n:'Entering Masjid',nu:'مسجد میں داخل ہونا',w:'When entering masjid',a:'اَللّٰهُمَّ افْتَحْ لِيْ اَبْوَابَ رَحْمَتِكَ',u:'اے اللہ! رحمت کے دروازے کھول',t:'Allahumma iftah li abwaba rahmatik',e:'O Allah! Open for me the gates of Your mercy.'},
+    {n:'Leaving Masjid',nu:'مسجد سے نکلنا',w:'When leaving masjid',a:'اَللّٰهُمَّ اِنِّيْ اَسْاَلُكَ مِنْ فَضْلِكَ',u:'اے اللہ! تیرا فضل مانگتا ہوں',t:'Allahumma inni asaluka min fadhlika',e:'O Allah! I ask You from Your bounty.'},
+    {n:'After Adhan',nu:'اذان کے بعد',w:'After hearing adhan',a:'اَللّٰهُمَّ رَبَّ هٰذِهِ الدَّعْوَةِ التَّامَّةِ',u:'اے اللہ! اس مکمل دعوت کے رب',t:'Allahumma rabba hadhihid-dawatit-tammah',e:'O Allah! Lord of this complete call.'},
+    {n:'Before Prayer',nu:'نماز سے پہلے',w:'Before starting prayer',a:'سُبْحَانَكَ اللّٰهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ',u:'پاک ہے تو اے اللہ اور تیری تعریف ہے اور بابرکت ہے تیرا نام',t:'Subhanakallahumma wa bihamdika wa tabarakasmuk',e:'Glory be to You O Allah, and praise. Blessed is Your name and exalted Your majesty.'},
+  ],
+  Wuzu:[
+    {n:'Before Wuzu',nu:'وضو شروع',w:'Before wuzu',a:'بِسْمِ اللّٰهِ',u:'اللہ کے نام سے',t:'Bismillah',e:'In the name of Allah.'},
+    {n:'After Wuzu',nu:'وضو کے بعد',w:'After completing wuzu',a:'اَشْهَدُ اَنْ لَّا اِلٰهَ اِلَّا اللّٰهُ وَاَشْهَدُ اَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ',u:'گواہی دیتا ہوں — اللہ کے سوا کوئی معبود نہیں اور محمد ﷺ اس کے رسول',t:'Ashhadu an la ilaha illallah wa anna Muhammadan rasooluh',e:'I testify there is no deity but Allah and Muhammad ﷺ is His Messenger.'},
+    {n:'Dua after Wuzu (full)',nu:'وضو کے بعد مکمل دعا',w:'After wuzu',a:'اَللّٰهُمَّ اجْعَلْنِيْ مِنَ التَّوَّابِيْنَ وَاجْعَلْنِيْ مِنَ الْمُتَطَهِّرِيْنَ',u:'اے اللہ! مجھے توبہ کرنے والوں اور پاک رہنے والوں میں شامل فرما',t:'Allahummaj-alni minat-tawwabeen waj-alni minal-mutatahhireen',e:'O Allah! Make me among those who repent and those who purify themselves.'},
+  ],
+  Health:[
+    {n:'Dua for Healing',nu:'شفا کی دعا',w:'When sick',a:'اَللّٰهُمَّ رَبَّ النَّاسِ اَذْهِبِ الْبَاسَ اشْفِ اَنْتَ الشَّافِيْ',u:'اے اللہ! لوگوں کے رب، تکلیف دور کر، شفا دے تو ہی شافی ہے',t:'Allahumma rabban-naas athhibil-baas ishfi antash-shafi',e:'O Allah! Lord of mankind, remove the harm and heal. You are the Healer.'},
+    {n:'Visiting a Sick Person',nu:'بیمار کی عیادت',w:'When visiting sick',a:'لَا بَاْسَ طَهُوْرٌ اِنْ شَاءَ اللّٰهُ',u:'کوئی بات نہیں، پاکی ہے انشاءاللہ',t:'La bas tahurun inshallah',e:'No harm, it is a purification, Allah willing.'},
+    {n:'Ruqyah on self',nu:'اپنے لیے رقیہ',w:'For pain in body',a:'بِسْمِ اللّٰهِ اَعُوْذُ بِعِزَّةِ اللّٰهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا اَجِدُ وَاُحَاذِرُ',u:'اللہ کی عزت اور قدرت سے جو درد ہے اس سے پناہ',t:'Bismillah authu bi izzatillahi wa qudratih',e:'In Allah\'s name, I seek refuge in Allah\'s might and power from what I feel and fear.'},
+    {n:'After Sneezing',nu:'چھینک کے بعد',w:'After sneezing',a:'اَلْحَمْدُ لِلّٰهِ',u:'تمام تعریفیں اللہ کے لیے',t:'Alhamdulillah',e:'All praise to Allah.'},
+    {n:'Reply to Sneezer',nu:'چھینکنے والے کا جواب',w:'When someone sneezes',a:'يَرْحَمُكَ اللّٰهُ',u:'اللہ تم پر رحم کرے',t:'Yarhamukallah',e:'May Allah have mercy on you.'},
+  ],
+  Family:[
+    {n:'Dua for Righteous Children',nu:'نیک اولاد کے لیے',w:'Daily',a:'رَبِّ هَبْ لِيْ مِنَ الصّٰلِحِيْنَ',u:'اے رب! مجھے نیک اولاد دے',t:'Rabbi hab li minas-salihin',e:'O Lord! Grant me righteous children.'},
+    {n:'Dua for Spouse',nu:'جیون ساتھی کے لیے',w:'Daily',a:'رَبَّنَا هَبْ لَنَا مِنْ اَزْوَاجِنَا وَذُرِّيّٰتِنَا قُرَّةَ اَعْيُنٍ',u:'اے رب! ہمارے جیون ساتھیوں اور اولاد کو آنکھوں کی ٹھنڈک بنا',t:'Rabbana hab lana min azwajina wa zurriyyatina qurrata ayan',e:'Our Lord! Grant us in our spouses and offspring the comfort of our eyes.'},
+    {n:'Dua for Family Unity',nu:'خاندانی اتحاد',w:'For family peace',a:'رَبِّ اَوْزِعْنِيْ اَنْ اَشْكُرَ نِعْمَتَكَ الَّتِيْ اَنْعَمْتَ عَلَيَّ وَعَلٰى وَالِدَيَّ',u:'اے رب! مجھے توفیق دے کہ میں تیری نعمت کا شکر ادا کروں',t:'Rabbi awzini an ashkura nimatakallati anamta alayya',e:'O Lord! Enable me to be grateful for Your favor which You bestowed upon me and my parents.'},
+    {n:'For Loved Ones',nu:'پیاروں کے لیے',w:'Daily',a:'اَللّٰهُمَّ اصْلِحْ لِيْ دِيْنِيْ وَدُنْيَايَ وَاٰخِرَتِيْ',u:'اے اللہ! میرا دین، دنیا اور آخرت سنوار',t:'Allahumma aslih li deeni wa dunyaya wa akhirati',e:'O Allah! Reform my religion, my worldly affairs, and my Hereafter.'},
+  ],
+  Ramzan:[
+    {n:'Sighting the Moon',nu:'رمضان کا چاند دیکھنا',w:'When seeing Ramadan moon',a:'اَللّٰهُ اَكْبَرُ اَللّٰهُمَّ اَهِلَّهُ عَلَيْنَا بِالْاَمْنِ وَالْاِيْمَانِ',u:'اللہ اکبر — اے اللہ! اسے ہم پر امن اور ایمان کے ساتھ طلوع کر',t:'Allahu Akbar Allahumma ahillahu alayna bil-amni wal-iman',e:'Allah is Greatest! O Allah! Let this moon rise upon us with security and faith.'},
+    {n:'Breaking Fast (Iftar)',nu:'افطار کی دعا',w:'When breaking fast',a:'اَللّٰهُمَّ اِنِّيْ لَكَ صُمْتُ وَبِكَ اٰمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلٰى رِزْقِكَ اَفْطَرْتُ',u:'اے اللہ! تیرے لیے روزہ رکھا، تجھ پر ایمان لایا اور تیرے رزق سے افطار کیا',t:'Allahumma inni laka sumtu wa bika amantu wa alayka tawakkaltu',e:'O Allah! For You I fasted, in You I believe, on You I rely, and with Your provision I break my fast.'},
+    {n:'Laylatul Qadr Dua',nu:'شبِ قدر کی دعا',w:'On Laylatul Qadr',a:'اَللّٰهُمَّ اِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّيْ',u:'اے اللہ! تو معاف کرنے والا ہے، معافی پسند کرتا ہے، مجھے معاف کر',t:'Allahumma innaka afuwwun tuhibbul-afwa fafu anni',e:'O Allah! You are Pardoning, You love to pardon, so pardon me.'},
+    {n:'Taraweeh Dua',nu:'تراویح کی دعا',w:'Between Taraweeh',a:'سُبْحَانَ ذِي الْمُلْكِ وَالْمَلَكُوْتِ',u:'پاک ہے وہ جو بادشاہت اور کائنات کا مالک ہے',t:'Subhana dhil-mulki wal-malakut',e:'Glory be to the Owner of dominion and the celestial kingdom.'},
+  ],
+  Hajj:[
+    {n:'Ihram & Talbiyah',nu:'تلبیہ',w:'During Hajj/Umrah',a:'لَبَّيْكَ اَللّٰهُمَّ لَبَّيْكَ لَبَّيْكَ لَا شَرِيْكَ لَكَ لَبَّيْكَ',u:'حاضر ہوں اے اللہ! حاضر ہوں، تیرا کوئی شریک نہیں',t:'Labbayk Allahumma labbayk labbayk la sharika laka labbayk',e:'Here I am O Allah, here I am! You have no partner, here I am!'},
+    {n:'Entering Makkah',nu:'مکہ میں داخل ہونا',w:'When entering Makkah',a:'اَللّٰهُمَّ هٰذَا حَرَمُكَ وَاَمْنُكَ فَحَرِّمْنِيْ عَلَى النَّارِ',u:'اے اللہ! یہ تیرا حرم اور امن ہے، مجھے آگ پر حرام کر دے',t:'Allahumma hatha haramuka wa amnuka faharrimni alan-nar',e:'O Allah! This is Your sanctuary and Your security, so forbid me to the Fire.'},
+    {n:'Seeing Kaaba',nu:'کعبہ دیکھنے کی دعا',w:'First sight of Kaaba',a:'اَللّٰهُمَّ زِدْ هٰذَا الْبَيْتَ تَشْرِيْفًا وَّتَعْظِيْمًا وَّتَكْرِيْمًا',u:'اے اللہ! اس گھر کی عزت، عظمت اور تکریم بڑھا',t:'Allahumma zid hadhal bayta tashrifa wa tazima wa takrima',e:'O Allah! Increase this House in honor, reverence and nobility.'},
+    {n:'During Tawaf',nu:'طواف کے دوران',w:'During tawaf',a:'رَبَّنَا اٰتِنَا فِي الدُّنْيَا حَسَنَةً وَّفِي الْاٰخِرَةِ حَسَنَةً وَّقِنَا عَذَابَ النَّارِ',u:'دنیا میں بھلائی، آخرت میں بھلائی اور آگ سے بچاؤ',t:'Rabbana atina fid-dunya hasanah',e:'Our Lord! Give us good in this world and good in the Hereafter and protect us from the Fire.'},
+  ],
+  Death:[
+    {n:'Dua for Deceased',nu:'مرنے والے کے لیے',w:'After someone passes away',a:'اَللّٰهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ',u:'اے اللہ! اسے معاف فرما، رحم فرما، عافیت دے اور درگزر فرما',t:'Allahumma ghfir lahu warhamhu wa afihi wafoo anhu',e:'O Allah! Forgive him, have mercy on him, grant him well-being and pardon him.'},
+    {n:'Inna Lillahi',nu:'انا للہ',w:'When hearing of a death',a:'اِنَّا لِلّٰهِ وَاِنَّا اِلَيْهِ رَاجِعُوْنَ',u:'بے شک ہم اللہ کے ہیں اور اسی کی طرف لوٹنے والے ہیں',t:'Inna lillahi wa inna ilayhi rajioon',e:'Indeed we belong to Allah and indeed to Him we will return.'},
+    {n:'At Graveyard',nu:'قبرستان میں',w:'When visiting graves',a:'اَلسَّلَامُ عَلَيْكُمْ اَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِيْنَ وَالْمُسْلِمِيْنَ',u:'السلام ہو تم پر اے ایمان والو اور مسلمانو',t:'Assalamu alaykum ahlad-diyar minal-mumineena wal-muslimeen',e:'Peace be upon you, O inhabitants of this place from the believers and Muslims.'},
+    {n:'Dua for Sabr',nu:'صبر کی دعا',w:'In times of grief',a:'اَللّٰهُمَّ اجْرُنِيْ فِيْ مُصِيْبَتِيْ وَاخْلُفْ لِيْ خَيْرًا مِّنْهَا',u:'اے اللہ! مجھے اس مصیبت میں اجر دے اور اس سے بہتر بدل دے',t:'Allahumma jurni fi musibati wakhluflي khayran minha',e:'O Allah! Reward me in my calamity and replace it with something better.'},
+  ],
+};
+
+// ===== TASBEEH =====
+var TASBEEHS=[
+  {a:'سُبْحَانَ اللّٰهِ',u:'اللہ پاک ہے',e:'SubhanAllah',m:'Glory be to Allah'},
+  {a:'اَلْحَمْدُ لِلّٰهِ',u:'تمام تعریفیں اللہ کے لیے',e:'Alhamdulillah',m:'All Praise to Allah'},
+  {a:'اَللّٰهُ اَكْبَرُ',u:'اللہ سب سے بڑا',e:'Allahu Akbar',m:'Allah is the Greatest'},
+  {a:'لَا اِلٰهَ اِلَّا اللّٰهُ',u:'اللہ کے سوا کوئی معبود نہیں',e:'La Ilaha IllAllah',m:'No god but Allah'},
+  {a:'اَسْتَغْفِرُ اللّٰهَ',u:'اللہ سے معافی',e:'Astaghfirullah',m:'I seek forgiveness'},
+  {a:'لَا حَوْلَ وَلَا قُوَّةَ اِلَّا بِاللّٰهِ',u:'کوئی طاقت نہیں سوائے اللہ کے',e:'La Hawla',m:'No power except Allah'},
+  {a:'صَلَّى اللّٰهُ عَلَيْهِ وَسَلَّمَ',u:'اللہ ان پر رحمت نازل فرمائے',e:'Sallallahu Alayhi Wasallam',m:'Blessings on the Prophet ﷺ'},
+  {a:'سُبْحَانَ اللّٰهِ وَبِحَمْدِهِ',u:'اللہ پاک ہے اور اس کی تعریف ہے',e:'SubhanAllah wa biHamdihi',m:'Glory and Praise to Allah'},
+];
+
+// ===== 50 PROPHET STORIES =====
+var STORIES=[
+  {e:'🌟',n:'Prophet Adam (AS)',nu:'آدم علیہ السلام',a:'حضرت آدم عليه السلام',p:'The first human and first prophet',
+   en:'Allah created Adam (AS) from clay — the very first human being. He breathed life into him and taught him the names of all things.\n\nAll angels bowed to Adam except Iblees (Shaytan), who was too proud and refused. Shaytan became the eternal enemy of mankind.\n\nAllah placed Adam and Hawwa in Jannah but Shaytan tricked them into eating from the forbidden tree. They felt deep regret and prayed: "Our Lord! We have wronged ourselves. If You do not forgive us, we will be among the losers."\n\nAllah forgave them and sent them to Earth as the parents of all humanity.',
+   ur:'اللہ نے آدم علیہ السلام کو مٹی سے بنایا۔ شیطان نے سجدہ سے انکار کیا۔ جنت میں رہے پھر زمین پر آئے۔ توبہ کی اور اللہ نے معاف فرمایا۔',
+   l:'Never be arrogant. Repent sincerely and Allah forgives.',lu:'تکبر نہ کرو۔ سچی توبہ سے اللہ معاف کرتا ہے۔'},
+
+  {e:'🌊',n:'Prophet Nuh (AS)',nu:'نوح علیہ السلام',a:'حضرت نوح عليه السلام',p:'950 years of patience — the great Ark',
+   en:'Prophet Nuh (AS) preached to his people for 950 years! Very few believed. Allah commanded him to build a great Ark.\n\nPeople mocked him — why build a ship far from water? But Nuh trusted Allah completely. When the flood came, believers and animal pairs boarded the Ark.\n\nThe flood covered the tallest mountains. Even Nuh\'s own son refused to board and drowned. The Ark rested on Mount Judi.',
+   ur:'نوح علیہ السلام نے 950 سال صبر کیا۔ کشتی بنائی۔ طوفان آیا صرف مومن بچے۔',
+   l:'Trust Allah even when the whole world mocks you.',lu:'اللہ پر بھروسہ رکھو چاہے سب مخالف ہوں۔'},
+
+  {e:'🔥',n:'Prophet Ibrahim (AS)',nu:'ابراہیم علیہ السلام',a:'حضرت ابراہیم عليه السلام',p:'Friend of Allah — saved from the fire',
+   en:'Ibrahim (AS) questioned the idols his people worshipped and smashed them all. The furious people threw him into a massive fire.\n\nBut Allah commanded: "O fire! Be cool and safe for Ibrahim!" The fire did not harm him at all — a miraculous sign from Allah.\n\nIbrahim (AS) and his son Ismaeel (AS) built the Kaaba in Makkah. He is called "Khalilullah" — the Friend of Allah.',
+   ur:'ابراہیم علیہ السلام نے بتوں کو توڑا۔ آگ میں ڈالا گیا لیکن اللہ نے بچایا۔ کعبہ بنایا۔',
+   l:'Stand for truth. Allah protects those who trust Him.',lu:'سچائی کے لیے ڈٹے رہو۔ اللہ حفاظت کرتا ہے۔'},
+
+  {e:'🐑',n:'Prophet Ismaeel (AS)',nu:'اسماعیل علیہ السلام',a:'حضرت اسماعیل عليه السلام',p:'The patient son — the great sacrifice',
+   en:'Ismaeel (AS) was the beloved son of Ibrahim (AS). When Ismaeel was a baby, Ibrahim left him and his mother Hajar in the desert of Makkah by Allah\'s command.\n\nHajar ran between the hills of Safa and Marwa searching for water. Allah caused the spring of Zamzam to gush forth.\n\nWhen Ibrahim had a dream to sacrifice his son, Ismaeel (AS) said: "O my father! Do what you have been commanded. You will find me, if Allah wills, patient." Allah replaced him with a ram — this is remembered in Eid-ul-Adha.',
+   ur:'اسماعیل علیہ السلام نے قربانی کے وقت کہا: ابا جو حکم ہو کریں۔ اللہ نے دنبہ بھیجا۔ زمزم کا پانی بھی انہی کی وجہ سے نکلا۔',
+   l:'Complete obedience to Allah brings His mercy.',lu:'اللہ کی مکمل اطاعت سے اس کی رحمت ملتی ہے۔'},
+
+  {e:'⭐',n:'Prophet Ishaq (AS)',nu:'اسحاق علیہ السلام',a:'حضرت اسحاق عليه السلام',p:'The blessed son born by miracle',
+   en:'Allah gave Ibrahim (AS) the good news of a second son, Ishaq (AS), through the angel Jibreel. His mother Sarah was very old and laughed in surprise — but Allah said nothing is impossible for Him.\n\nIshaq (AS) was born miraculously and became a great prophet. He was the father of Prophet Yaqub (AS), who was also called Israel. From his lineage came many great prophets.',
+   ur:'اسحاق علیہ السلام معجزاتی طور پر پیدا ہوئے۔ بڑھاپے میں ان کی والدہ کو خوشخبری ملی۔ ان کی نسل میں بہت سے انبیاء آئے۔',
+   l:'Nothing is impossible for Allah. His promise always comes true.',lu:'اللہ کے لیے کچھ ناممکن نہیں۔ اس کا وعدہ ہمیشہ پورا ہوتا ہے۔'},
+
+  {e:'🏔️',n:'Prophet Yaqub (AS)',nu:'یعقوب علیہ السلام',a:'حضرت يعقوب عليه السلام',p:'The patient father who never lost hope',
+   en:'Yaqub (AS), also called Israel, was the son of Ishaq (AS). He had 12 sons, and he loved Yusuf most. When Yusuf was taken away, Yaqub grieved deeply but never lost faith.\n\nHe said: "I only complain of my suffering and my grief to Allah." He wept so much that he lost his eyesight, but still trusted Allah.\n\nWhen Yusuf sent his shirt back, the scent restored Yaqub\'s sight. Their tearful reunion after years of separation is one of the most beautiful moments in Quran.',
+   ur:'یعقوب علیہ السلام نے یوسف کے جانے پر بہت غم کھایا لیکن اللہ پر یقین نہیں چھوڑا۔ آنکھیں چلی گئیں لیکن صبر کیا۔ آخر ملاقات ہوئی۔',
+   l:'Never lose hope in Allah even in the darkest times.',lu:'اللہ سے امید کبھی نہ چھوڑو۔'},
+
+  {e:'🌙',n:'Prophet Yusuf (AS)',nu:'یوسف علیہ السلام',a:'حضرت يوسف عليه السلام',p:'The most beautiful story in the Quran',
+   en:'Yusuf (AS) was thrown into a well by his jealous brothers. A caravan sold him as a slave in Egypt. Despite years of hardship and unjust imprisonment, Yusuf never lost hope in Allah.\n\nHe interpreted Pharaoh\'s dream about 7 years of harvest and 7 years of famine. He was made treasurer of Egypt. When his brothers came seeking food during famine, he forgave them beautifully:\n\n"No blame upon you today. Allah will forgive you. He is the Most Merciful."',
+   ur:'یوسف علیہ السلام کو بھائیوں نے کنویں میں ڈالا۔ غلام بنے، قید ہوئے۔ آخر مصر کے خزانچی بنے اور بھائیوں کو معاف کیا۔',
+   l:'Never lose hope. Allah\'s plan is perfect. Forgiveness is noble.',lu:'اللہ کی رحمت سے ناامید نہ ہو۔ معاف کرنا بڑائی کی نشانی ہے۔'},
+
+  {e:'🐋',n:'Prophet Yunus (AS)',nu:'یونس علیہ السلام',a:'حضرت يونس عليه السلام',p:'Swallowed by a whale — rescued by dua',
+   en:'Yunus (AS) left his people without permission. On a ship in a storm, he was thrown into the sea and swallowed by a huge whale.\n\nIn three darknesses — night, deep ocean, and whale\'s belly — he cried: "There is no deity except You; Glory be to You! I was indeed of the wrongdoers."\n\nAllah accepted his dua and the whale gently spat him onto shore. He returned and 100,000 people accepted faith!',
+   ur:'یونس علیہ السلام کو مچھلی نے نگل لیا۔ تین اندھیروں میں دعا کی۔ اللہ نے قبول فرمایا۔ واپس آئے اور سب ایمان لائے۔',
+   l:'In every darkness, call upon Allah. He always hears.',lu:'ہر اندھیرے میں اللہ کو پکارو — وہ ضرور سنتا ہے۔'},
+
+  {e:'💧',n:'Prophet Ayyub (AS)',nu:'ایوب علیہ السلام',a:'حضرت أيوب عليه السلام',p:'The prophet of extraordinary patience',
+   en:'Prophet Ayyub (AS) was a wealthy man with many blessings. Allah tested him by removing his wealth, his children, and his health. He suffered a painful illness for 18 long years.\n\nYet he never complained or lost faith. He said: "Harm has touched me, and You are the Most Merciful of the merciful." Allah responded to his dua, restored his health, wealth, and children and multiplied his blessings.\n\nAyyub (AS) is the symbol of patience in Islam.',
+   ur:'ایوب علیہ السلام کو 18 سال بیماری رہی۔ سب کچھ چھن گیا لیکن صبر کیا۔ اللہ نے سب واپس دیا اور اور زیادہ بھی۔',
+   l:'True patience is rewarded greatly by Allah.',lu:'اللہ کی راہ میں صبر کرنے والوں کو بڑا انعام ملتا ہے۔'},
+
+  {e:'🎵',n:'Prophet Dawud (AS)',nu:'داؤد علیہ السلام',a:'حضرت داؤد عليه السلام',p:'The king-prophet given the Zabur',
+   en:'Dawud (AS) was a young shepherd boy when he defeated the giant warrior Jalut (Goliath) with a sling and a stone. Allah gave him kingdom, wisdom, and the Zabur (Psalms).\n\nAllah gave Dawud a beautiful voice — when he recited, the birds and mountains would join in glorifying Allah. He was both a powerful king and a humble servant of Allah.\n\nDawud (AS) was also given the ability to make iron soft — he would weave armor from it. He is called one of the greatest prophets.',
+   ur:'داؤد علیہ السلام نے جالوت کو مارا۔ انہیں زبور دی گئی۔ لوہا ان کے ہاتھوں میں موم ہو جاتا تھا۔ کبوتر اور پہاڑ ان کے ساتھ تسبیح کرتے تھے۔',
+   l:'Courage + trust in Allah = victory. Humble worship is the key.',lu:'اللہ پر بھروسہ اور ہمت سے فتح ملتی ہے۔'},
+
+  {e:'🦁',n:'Prophet Sulaiman (AS)',nu:'سلیمان علیہ السلام',a:'حضرت سليمان عليه السلام',p:'The prophet who ruled jinn and animals',
+   en:'Sulaiman (AS) was given an extraordinary kingdom — he could understand the language of birds, animals, and even insects. The wind was made subject to him, and the jinn worked under his command.\n\nOnce an ant warned other ants: "O ants! Enter your homes before Sulaiman and his army crush you without knowing!" Sulaiman smiled at this and thanked Allah.\n\nHe built the great Temple of Jerusalem and called the Queen of Sheba Bilqees to Islam. He is the son of Dawud (AS).',
+   ur:'سلیمان علیہ السلام کو جانوروں اور جنوں کی بادشاہت ملی۔ چیونٹی نے انہیں پہچانا۔ ملکہ بلقیس اسلام لائی۔',
+   l:'A kingdom used for good and gratitude to Allah is truly blessed.',lu:'اللہ کی نعمتوں کا شکر ادا کرنا چاہیے۔'},
+
+  {e:'🌊',n:'Prophet Musa (AS)',nu:'موسیٰ علیہ السلام',a:'حضرت موسى عليه السلام',p:'Kalimullah — the one who spoke with Allah',
+   en:'Prophet Musa (AS) was born when Pharaoh was killing all baby boys. His mother placed him in a basket in the River Nile — and he ended up in Pharaoh\'s own palace!\n\nAllah spoke directly to Musa at Mount Sinai and gave him the Torah. Musa confronted Pharaoh with miracles — his staff became a serpent and his hand became white with light.\n\nWhen Pharaoh chased the Israelites, Musa struck the sea with his staff and it parted — 12 paths opened. The Israelites crossed safely but Pharaoh and his army drowned.',
+   ur:'موسیٰ علیہ السلام فرعون کے گھر میں پلے۔ اللہ سے کوہِ سینا پر بات کی۔ سمندر کو چھڑی سے پھاڑا۔',
+   l:'Allah is with the patient and the truthful. No power can overcome His command.',lu:'اللہ کا حکم ہر طاقت پر غالب ہے۔'},
+
+  {e:'🕊️',n:'Prophet Isa (AS)',nu:'عیسیٰ علیہ السلام',a:'حضرت عيسى عليه السلام',p:'Born without a father — performed miracles',
+   en:'Prophet Isa (Jesus AS) was born miraculously to Maryam (Mary) without a father. Even as a baby in the cradle, he spoke to defend his mother: "I am a servant of Allah."\n\nAllah gave Isa extraordinary miracles: healing the blind, curing lepers, and even bringing the dead back to life — all by Allah\'s permission.\n\nWhen his enemies plotted against him, Allah raised Isa to the heavens. Muslims believe he will return before the Day of Judgment. He is called "Ruhullah" — the Spirit from Allah.',
+   ur:'عیسیٰ علیہ السلام بغیر باپ کے پیدا ہوئے۔ مردوں کو زندہ کیا، اندھوں کو بینائی دی۔ اللہ نے انہیں آسمان پر اٹھا لیا۔',
+   l:'Isa (AS) was a great prophet and servant of Allah, not God.',lu:'عیسیٰ علیہ السلام اللہ کے نبی تھے، خدا نہیں۔'},
+
+  {e:'☀️',n:'Prophet Muhammad ﷺ',nu:'محمد ﷺ خاتم النبیین',a:'حضرت محمد صلى الله عليه وسلم',p:'The final and most beloved Prophet of Allah',
+   en:'Muhammad ﷺ was born in Makkah in 570 CE. Even before prophethood, he was known as "Al-Ameen" — the Trustworthy.\n\nAt age 40, in Cave Hira, Angel Jibreel brought the first revelation: "Read! In the name of your Lord who created."\n\nFor 23 years he delivered Allah\'s message with patience, wisdom, and love. He freed slaves, gave rights to women and children, and established a just and merciful society.\n\nHe is the final prophet and the best example for all of humanity.\n\n"The best of you is the one who is best to his family." — Prophet Muhammad ﷺ',
+   ur:'محمد ﷺ مکہ میں پیدا ہوئے۔ الامین کہلائے۔ غارِ حرا میں پہلی وحی آئی۔ 23 سال اسلام پھیلایا۔ آخری نبی ہیں۔',
+   l:'The Prophet ﷺ is our perfect role model. Send Durood every day.',lu:'نبی ﷺ بہترین نمونہ ہیں۔ روزانہ درود پڑھو۔'},
+
+  {e:'🌸',n:'Sayyidah Maryam (AS)',nu:'مریم علیہا السلام',a:'حضرت مريم عليها السلام',p:'The most honored woman in Islam and Quran',
+   en:'Maryam (AS) is the only woman mentioned by name in the Quran — her name appears 34 times. She dedicated herself completely to worship from childhood.\n\nAngel Jibreel appeared to her with news that she would bear a child without a father. She said: "O my Lord! How can I have a son when no man has touched me?"\n\nAllah said: "Such is Allah. He creates what He wills. When He decrees a matter, He only says to it: Be! And it is."\n\nMaryam is described in the Quran as the best woman who ever lived.',
+   ur:'مریم علیہا السلام قرآن کریم میں 34 بار ذکر ہیں۔ بچپن سے عبادت میں لگی رہیں۔ اللہ نے انہیں عیسیٰ علیہ السلام دیے بغیر باپ کے۔',
+   l:'Pure worship and complete trust in Allah brings His greatest blessings.',lu:'خالص عبادت اور اللہ پر بھروسہ بہترین انعام لاتا ہے۔'},
+
+  {e:'👸',n:'Sayyidah Khadijah (RA)',nu:'خدیجہ رضی اللہ عنہا',a:'حضرت خديجة الكبرى رضي الله عنها',p:'The first and most beloved wife of the Prophet ﷺ',
+   en:'Khadijah (RA) was a successful businesswoman who first employed Muhammad ﷺ. She proposed marriage to him and was the first person to accept Islam.\n\nWhen the Prophet ﷺ received the first revelation and came home trembling, Khadijah comforted him: "By Allah, He will never disgrace you. You maintain family ties, you speak the truth, you bear people\'s burdens, you earn for the poor..."\n\nShe spent all her wealth in the cause of Islam. The Prophet ﷺ said she was the best of women of her time.',
+   ur:'خدیجہ رضی اللہ عنہا پہلی مسلمان تھیں۔ پہلی وحی پر نبی ﷺ کو تسلی دی۔ سارا مال اسلام پر لگا دیا۔',
+   l:'Be a source of comfort and support for those you love.',lu:'اپنے پیاروں کے لیے تسلی اور مدد کا ذریعہ بنو۔'},
+
+  {e:'💪',n:'Sayyidna Abu Bakr (RA)',nu:'ابوبکر صدیق رضی اللہ عنہ',a:'حضرت أبو بكر الصديق رضي الله عنه',p:'The truthful one — first Caliph of Islam',
+   en:'Abu Bakr (RA) was the closest friend of the Prophet ﷺ. When the Prophet announced his Night Journey (Isra and Miraj), many people disbelieved. Abu Bakr said without hesitation: "If he says so, then it is true." That is why he was called As-Siddiq — the Truthful One.\n\nIn the cave during Hijra, he protected the Prophet ﷺ with his life. He became the first Caliph after the Prophet\'s passing and united the Muslim ummah.',
+   ur:'ابوبکر صدیق رضی اللہ عنہ نبی ﷺ کے سب سے قریبی دوست تھے۔ پہلے مسلمان مردوں میں سے تھے۔ اسلام کے پہلے خلیفہ بنے۔',
+   l:'True friendship means standing by your friend in the hardest times.',lu:'سچی دوستی مشکل وقت میں ساتھ دینا ہے۔'},
+
+  {e:'⚔️',n:'Sayyidna Umar (RA)',nu:'عمر فاروق رضی اللہ عنہ',a:'حضرت عمر الفاروق رضي الله عنه',p:'The mighty leader who ruled with justice',
+   en:'Umar ibn al-Khattab (RA) initially was a fierce enemy of Islam. His conversion was a turning point — when he accepted Islam, Muslims could pray openly in the Kaaba for the first time.\n\nAs the second Caliph, Umar expanded the Islamic state across Persia, Egypt and Syria. He would walk the streets at night himself to check on the poor.\n\nHe famously said: "If a dog dies of hunger on the banks of the Euphrates, Umar will be accountable for it." He is remembered as the model of justice.',
+   ur:'عمر رضی اللہ عنہ پہلے اسلام کے دشمن تھے۔ ایمان لانے پر مسلمان کھل کر نماز پڑھ سکے۔ دوسرے خلیفہ بنے، انصاف کی مثال بنے۔',
+   l:'A true leader serves his people with justice and humility.',lu:'سچا رہنما انصاف اور انکساری سے خدمت کرتا ہے۔'},
+
+  {e:'📚',n:'Sayyidna Ali (RA)',nu:'علی رضی اللہ عنہ',a:'حضرت علي بن أبي طالب رضي الله عنه',p:'The gateway to the city of knowledge',
+   en:'Ali ibn Abi Talib (RA) was the cousin and son-in-law of the Prophet ﷺ. He accepted Islam as a young boy — one of the earliest Muslims.\n\nThe Prophet ﷺ said: "I am the city of knowledge and Ali is its gateway." He was renowned for his wisdom, bravery and deep understanding of Islam.\n\nOn the night of Hijra, Ali (RA) slept in the Prophet\'s bed to deceive the enemies, risking his own life. He became the fourth Caliph of Islam.',
+   ur:'علی رضی اللہ عنہ نبی ﷺ کے چچازاد اور داماد تھے۔ بچپن میں اسلام لائے۔ چوتھے خلیفہ بنے۔ علم اور شجاعت کی مثال تھے۔',
+   l:'Seek knowledge throughout your life. Bravery + wisdom = true strength.',lu:'علم حاصل کرتے رہو۔ علم اور بہادری اصل طاقت ہے۔'},
+
+  {e:'🌺',n:'Sayyidah Fatimah (RA)',nu:'فاطمہ رضی اللہ عنہا',a:'حضرت فاطمة الزهراء رضي الله عنها',p:'Daughter of the Prophet ﷺ — leader of women of Paradise',
+   en:'Fatimah (RA) was the beloved daughter of Prophet Muhammad ﷺ. She inherited her father\'s noble character — patient, generous and devoted to worship.\n\nShe married Ali (RA) and had four children: Hasan, Husain, Zaynab and Umm Kulthum. The Prophet ﷺ said: "Fatimah is a part of me. Whoever angers her angers me."\n\nShe is called "Az-Zahraa" — the radiant one. She is the leader of the women of Paradise.',
+   ur:'فاطمہ رضی اللہ عنہا نبی ﷺ کی بیٹی تھیں۔ نبی ﷺ نے فرمایا: فاطمہ میرا ٹکڑا ہے۔ جنت کی خواتین کی سردار ہیں۔',
+   l:'Patience, worship and noble character are the marks of the best people.',lu:'صبر، عبادت اور اعلیٰ اخلاق — بہترین انسان کی پہچان ہے۔'},
+
+  {e:'🏹',n:'Sayyidna Khalid ibn Walid (RA)',nu:'خالد بن ولید رضی اللہ عنہ',a:'حضرت خالد بن الوليد رضي الله عنه',p:'Sword of Allah — undefeated general',
+   en:'Khalid ibn Walid (RA) was the greatest military commander in Islamic history. He never lost a single battle in his life.\n\nBefore accepting Islam, he was the commander against the Muslims in Battle of Uhud. When he accepted Islam, the Prophet ﷺ named him "Saifullah" — the Sword of Allah.\n\nHe participated in over 100 battles and had wounds all over his body. Despite never being defeated in battle, he died in his bed and said: "I have participated in so many battles, yet I die in my bed like an old camel — may the eyes of cowards never sleep!"',
+   ur:'خالد بن ولید رضی اللہ عنہ نے کوئی جنگ نہیں ہاری۔ نبی ﷺ نے انہیں سیف اللہ کا لقب دیا۔',
+   l:'Use your greatest strengths in the service of Allah.',lu:'اپنی بہترین صلاحیتیں اللہ کی راہ میں لگاؤ۔'},
+
+  {e:'🌟',n:'The People of the Cave (Ashab-ul-Kahf)',nu:'اصحاب الکہف',a:'أصحاب الكهف',p:'Young believers who slept for 300+ years',
+   en:'A group of young men in a pagan city chose to believe in the One Allah. When threatened, they fled to a cave and prayed: "Our Lord! Bestow on us mercy from Yourself and provide right conduct in our affairs."\n\nAllah put them to sleep for 309 years. Their dog sat at the entrance. When they woke, they thought they had slept for a day! One went to the city for food — the people were amazed at the old coins.\n\nThey became a sign of Allah\'s power for the people. Their story is in Surah Al-Kahf.',
+   ur:'نوجوانوں نے ایمان کی خاطر غار میں پناہ لی۔ اللہ نے انہیں 309 سال سلا دیا۔ یہ اللہ کی قدرت کی نشانی بنے۔',
+   l:'Hold firmly to your faith even when the whole society is against you.',lu:'ایمان کو مضبوطی سے پکڑو چاہے پوری دنیا مخالف ہو۔'},
+
+  {e:'🐫',n:'The Story of Bilal (RA)',nu:'بلال رضی اللہ عنہ',a:'حضرت بلال الحبشي رضي الله عنه',p:'The first muezzin of Islam — freed from slavery',
+   en:'Bilal (RA) was an African slave owned by Umayyah ibn Khalaf. When he accepted Islam, his master tortured him terribly, placing heavy rocks on his chest under the blazing sun demanding he abandon Islam.\n\nBilal would only say: "Ahad! Ahad!" — "One! One!" — referring to the Oneness of Allah.\n\nAbu Bakr (RA) bought Bilal and freed him. The Prophet ﷺ chose Bilal as the first muezzin of Islam. His voice would call people to prayer from the Kaaba itself.',
+   ur:'بلال رضی اللہ عنہ غلام تھے۔ تشدد کے باوجود احد احد کہتے رہے۔ ابوبکر نے آزاد کیا۔ اسلام کے پہلے موذن بنے۔',
+   l:'No torture can break true faith. Islam gives dignity to every human.',lu:'سچا ایمان کوئی توڑ نہیں سکتا۔ اسلام ہر انسان کو عزت دیتا ہے۔'},
+
+  {e:'📖',n:'The Story of Salman Al-Farsi (RA)',nu:'سلمان فارسی رضی اللہ عنہ',a:'حضرت سلمان الفارسي رضي الله عنه',p:'The Persian seeker who found the truth',
+   en:'Salman (RA) was a Persian who left Zoroastrianism seeking the true religion. He traveled for years, following Christian and Jewish scholars, each of whom told him about a coming prophet.\n\nFinally he came to Madinah and recognized the signs of prophethood in Muhammad ﷺ. He accepted Islam immediately.\n\nAt the Battle of the Trench, Salman suggested the brilliant idea of digging a defensive trench — a Persian military strategy. The Prophet ﷺ said: "Salman is from us, the People of the Household."',
+   ur:'سلمان فارسی رضی اللہ عنہ نے سچ کی تلاش میں سالوں سفر کیا۔ آخرکار نبی ﷺ کو پہچانا اور اسلام لائے۔',
+   l:'The sincere seeker of truth will always find it.',lu:'سچ کا ایمانداری سے طالب انسان ضرور راستہ پاتا ہے۔'},
+
+  {e:'🤲',n:'The Hijra to Madinah',nu:'ہجرتِ مدینہ',a:'الهجرة إلى المدينة المنورة',p:'The most important journey in Islamic history',
+   en:'When the persecution of Muslims in Makkah became unbearable, Allah gave permission to migrate to Madinah. The Prophet ﷺ and Abu Bakr (RA) left secretly at night.\n\nThe enemies pursued them. They hid in Cave Thawr. When the enemies reached the cave entrance, a spider had spun a web and a dove had laid eggs — the enemies assumed no one was inside.\n\nThe Ansar (helpers) of Madinah welcomed the Muhajireen (migrants) with open arms, sharing their homes and wealth. This is the beginning of the Islamic calendar.',
+   ur:'مکہ میں ظلم بڑھا تو اللہ نے مدینہ کی طرف ہجرت کا اذن دیا۔ غارِ ثور میں چھپے۔ مدینہ والوں نے گرم جوشی سے خیر مقدم کیا۔',
+   l:'When you sacrifice for Allah\'s sake, He opens new doors.',lu:'اللہ کے لیے قربانی پر وہ نئے راستے کھولتا ہے۔'},
+
+  {e:'🕌',n:'The Battle of Badr',nu:'غزوہ بدر',a:'غزوة بدر الكبرى',p:'The first major battle of Islam — miraculous victory',
+   en:'In 624 CE, 313 poorly equipped Muslims faced a Makkan army of 1000 well-armed warriors at Badr. The odds seemed impossible.\n\nThe Prophet ﷺ prayed all night before the battle: "O Allah! If this group is destroyed, You will not be worshipped on Earth again!"\n\nAllah sent angels to help the Muslims. The Muslims won a stunning victory against all odds. 70 enemy leaders were killed and 70 captured. The Quran says Allah sent 1000 angels to help the believers at Badr.',
+   ur:'313 مسلمانوں نے 1000 دشمنوں کو شکست دی۔ اللہ نے فرشتے بھیجے۔ اسلام کی پہلی بڑی فتح۔',
+   l:'With tawakkul and preparation, Allah gives victory to the believers.',lu:'توکل اور تیاری سے اللہ مومنوں کو فتح دیتا ہے۔'},
+
+  {e:'🌅',n:'The Conquest of Makkah',nu:'فتحِ مکہ',a:'فتح مكة المكرمة',p:'The most merciful conquest in history',
+   en:'In 630 CE, 8 years after being expelled, the Prophet ﷺ returned to Makkah with 10,000 Muslims. It was the greatest army Arabia had ever seen.\n\nThe Prophet ﷺ entered Makkah with his head bowed in humility on his camel. He cleared the Kaaba of 360 idols, proclaiming "Truth has come and falsehood has perished."\n\nThen he addressed the Quraysh who had persecuted him for years: "What do you think I will do to you?" They said: "A noble brother and son of a noble brother." He said: "Go — you are free."',
+   ur:'نبی ﷺ نے 10000 صحابہ کے ساتھ مکہ فتح کیا۔ کعبہ سے بت توڑے۔ دشمنوں کو معاف کر دیا۔ سب سے رحیم فتح۔',
+   l:'True power is shown in forgiveness. The Prophet ﷺ is the model of mercy.',lu:'طاقت کا بہترین مظاہرہ معاف کرنا ہے۔'},
+
+  {e:'📿',n:'The Isra and Miraj',nu:'اسراء اور معراج',a:'الإسراء والمعراج',p:'The night journey to the heavens',
+   en:'In one miraculous night, the Prophet ﷺ was taken from Makkah to Jerusalem (Al-Aqsa) on the Buraq — a special animal — and then ascended through all seven heavens.\n\nHe met all the previous prophets and led them in prayer. He was taken to Sidratul Muntaha — the highest point any creation has ever reached.\n\nAllah gave the Prophet ﷺ the gift of five daily prayers that night. Originally Allah commanded 50 prayers, but through Prophet Musa\'s advice, it was reduced to 5 — yet carrying the reward of 50.',
+   ur:'نبی ﷺ ایک رات میں مکہ سے بیت المقدس اور پھر ساتوں آسمانوں پر گئے۔ تمام انبیاء سے ملے۔ پانچ نمازوں کا تحفہ ملا۔',
+   l:'The five daily prayers are a gift from Allah — a direct connection to Him.',lu:'پانچ نمازیں اللہ کا تحفہ ہیں — اللہ سے براہ راست رابطہ۔'},
+
+  {e:'🌴',n:'The Treaty of Hudaybiyyah',nu:'صلح حدیبیہ',a:'صلح الحديبية',p:'An apparent defeat that was actually a great victory',
+   en:'In 628 CE, the Prophet ﷺ and 1400 companions set out for Umrah but were stopped at Hudaybiyyah by the Quraysh. The Quraysh refused entry.\n\nThe Treaty was signed — it seemed unfair to the Muslims. No Umrah this year, fugitives must be returned, 10 years of peace.\n\nThe companions were upset, but the Prophet ﷺ was calm. Two years later, the Quraysh broke the treaty — and the Muslims liberated Makkah. The Quran called the Treaty "a manifest victory."',
+   ur:'قریش نے عمرہ سے روکا۔ معاہدہ لکھا جو مسلمانوں کو ناگوار لگا۔ لیکن اللہ نے اسے فتح مبین کہا۔ دو سال بعد مکہ فتح ہوا۔',
+   l:'What appears to be a loss may actually be Allah\'s greatest blessing.',lu:'جو نقصان لگے وہ اللہ کی بڑی نعمت ہو سکتا ہے۔'},
+
+  {e:'🌙',n:'Laylatul Qadr',nu:'شبِ قدر',a:'ليلة القدر',p:'Better than 1000 months — the night of power',
+   en:'Laylatul Qadr — the Night of Power — is hidden in the last 10 nights of Ramadan, most likely the 27th night.\n\nAllah says in the Quran: "The Night of Power is better than a thousand months." The angels and the Spirit descend on this night with every decree.\n\nThe Prophet ﷺ would spend the last 10 nights in Itikaf (seclusion), increasing his worship. The best dua for this night is: "O Allah! You are Pardoning, You love to pardon, so pardon me."',
+   ur:'شبِ قدر رمضان کی آخری 10 راتوں میں ہے۔ ہزار مہینوں سے بہتر۔ فرشتے نازل ہوتے ہیں۔ نبی ﷺ اعتکاف کرتے تھے۔',
+   l:'Never miss the last 10 nights of Ramadan. It could change your life.',lu:'رمضان کی آخری 10 راتیں غنیمت سمجھو — زندگی بدل سکتی ہے۔'},
+
+  {e:'🕋',n:'Hajj — The Pilgrimage',nu:'حج',a:'الحج',p:'The fifth pillar of Islam',
+   en:'Hajj is the annual pilgrimage to Makkah — it is obligatory once in a lifetime for every Muslim who is able.\n\nPilgrims wear white Ihram — all equal before Allah, rich and poor. They circle the Kaaba 7 times (Tawaf), walk between Safa and Marwa (Sa\'i), stand at Arafat, and throw stones at the Jamarat (symbolizing rejecting Shaytan).\n\nArafat is the heart of Hajj — the Prophet ﷺ said: "Hajj is Arafat." Standing there in prayer is one of the most powerful moments a Muslim can experience.',
+   ur:'حج زندگی میں ایک بار فرض ہے۔ سب برابر سفید کپڑوں میں۔ طواف، صفا مروہ، عرفات، رمی۔ یہ اسلام کا پانچواں رکن ہے۔',
+   l:'In Hajj, all humans stand equal before Allah. Wealth and status mean nothing.',lu:'حج میں سب اللہ کے سامنے برابر۔ امیر غریب سب ایک ہیں۔'},
+
+  {e:'💧',n:'The Story of Zamzam',nu:'زمزم کی کہانی',a:'قصة زمزم',p:'The miraculous water that never runs dry',
+   en:'When Ibrahim (AS) left baby Ismaeel and his mother Hajar alone in the hot desert, Hajar was frightened but trusted Allah.\n\nShe ran seven times between the hills of Safa and Marwa searching for water. Baby Ismaeel kicked the ground and the water of Zamzam began to flow!\n\nAngel Jibreel appeared and said "Be not afraid!" A bird came and the Jurhum tribe followed, settling near the water. Today, billions of Muslims drink Zamzam water annually. This Zamzam has been flowing for over 4,000 years and never runs dry.',
+   ur:'ہاجرہ نے صفا اور مروہ کے درمیان سات چکر لگائے۔ اسماعیل علیہ السلام کی ایڑی سے زمزم نکلا۔ 4000 سال سے بہہ رہا ہے۔',
+   l:'When you exhaust all options, Allah\'s help arrives. Never give up.',lu:'جب سارے راستے بند ہوں تب اللہ کی مدد آتی ہے۔'},
+
+  {e:'🌿',n:'The Story of Luqman',nu:'لقمان علیہ السلام',a:'حضرت لقمان عليه السلام',p:'The wise man whose advice is in the Quran',
+   en:'Luqman was a wise man — blessed with wisdom by Allah. His famous advice to his son is recorded in Surah Luqman of the Quran.\n\nHe told his son: "O my son! Do not associate partners with Allah — that is a great wrongdoing. Be grateful to Me and to your parents."\n\n"O my son! Establish prayer, enjoin good, forbid evil, and be patient over whatever befalls you. And do not turn your cheek away from people out of pride, and do not walk through the earth exultantly."\n\nHis wisdom has guided Muslims for 1400 years.',
+   ur:'لقمان حکیم کی نصیحتیں قرآن میں ہیں۔ انہوں نے بیٹے کو شرک سے روکا، نماز کا حکم دیا، صبر سکھایا اور تکبر سے منع کیا۔',
+   l:'The best gift you can give your child is wisdom and love for Allah.',lu:'اولاد کو بہترین تحفہ اللہ سے محبت اور حکمت ہے۔'},
+
+  {e:'🦅',n:'Surah Al-Kahf and Dhul-Qarnayn',nu:'ذوالقرنین',a:'ذو القرنين',p:'The righteous king who reached the ends of the earth',
+   en:'Dhul-Qarnayn was a powerful and righteous king who traveled to the far West and East of the earth.\n\nHe came upon a people trapped between two mountains, terrorized by the tribes of Yajooj and Majooj (Gog and Magog). They offered him wealth to build a barrier.\n\nDhul-Qarnayn refused payment and said: "What my Lord has established me in is better. But help me with strength and I will make a barrier between you and them."\n\nHe built an iron and copper wall trapping them. The barrier will break only at the end of times.',
+   ur:'ذوالقرنین نے مشرق و مغرب کا سفر کیا۔ یاجوج ماجوج کے خلاف لوہے اور تانبے کی دیوار بنائی۔ آخرت میں ٹوٹے گی۔',
+   l:'True power is using your strength to protect the weak and serve Allah.',lu:'اصل طاقت وہ ہے جو کمزوروں کی حفاظت کے لیے استعمال ہو۔'},
+
+  {e:'🌊',n:'The Story of Hud (AS)',nu:'ہود علیہ السلام',a:'حضرت هود عليه السلام',p:'The prophet of Aad — destroyed by a massive wind',
+   en:'Prophet Hud (AS) was sent to the people of Aad — a powerful civilization known for their massive buildings. They were arrogant about their strength.\n\nHud called them to worship only Allah and stop oppressing people. They mocked him and said: "Who is stronger than us?"\n\nAllah sent against them a violent wind that blew for 7 nights and 8 days. It destroyed everything. Hud and the believers were saved.',
+   ur:'عاد قوم نے ہود علیہ السلام کو جھٹلایا۔ اللہ نے سات راتیں آٹھ دن کی آندھی بھیجی۔ سب تباہ ہو گئے سوائے مومنوں کے۔',
+   l:'Arrogance leads to destruction. Humility before Allah is the key to safety.',lu:'تکبر تباہی لاتا ہے۔ اللہ کے سامنے جھکنا نجات ہے۔'},
+
+  {e:'💎',n:'The Story of Salih (AS)',nu:'صالح علیہ السلام',a:'حضرت صالح عليه السلام',p:'The prophet of Thamud — the miracle of the she-camel',
+   en:'Prophet Salih (AS) was sent to the people of Thamud who carved homes in mountains. They demanded a miracle, so Allah brought forth a she-camel from a rock.\n\nSalih warned them: "This is the she-camel of Allah — do not harm her!" They were given 3 days warning after they hamstrung the camel.\n\nWhen they did not repent, a mighty blast destroyed them all. Salih said: "O my people! I delivered the message of my Lord and gave you sincere advice."',
+   ur:'ثمود نے صالح علیہ السلام کی اونٹنی کو مار ڈالا۔ تین دن کی مہلت دی گئی۔ پھر سخت آواز سے سب ہلاک ہو گئے۔',
+   l:'Never harm innocent beings. Every warning from Allah should be taken seriously.',lu:'بے گناہوں کو نقصان نہ پہنچاؤ۔ اللہ کی ہر وارننگ سنجیدہ لو۔'},
+
+  {e:'🏙️',n:'The Story of Prophet Lut (AS)',nu:'لوط علیہ السلام',a:'حضرت لوط عليه السلام',p:'The prophet whose people were destroyed for immorality',
+   en:'Prophet Lut (AS) was sent to the people of Sodom who had fallen into terrible sins. He called them to righteousness but they refused.\n\nAngels came to Lut in human form. The people tried to harm them. The angels revealed they were messengers and told Lut to leave with his family before dawn.\n\nAllah turned their city upside down and rained stones upon it. Lut and the believers were saved. His wife, who sympathized with the wrongdoers, was also destroyed.',
+   ur:'لوط علیہ السلام کی قوم نے فحاشی نہیں چھوڑی۔ اللہ نے شہر الٹ دیا اور پتھروں کی بارش کی۔ صرف مومن بچے۔',
+   l:'Moral boundaries set by Allah protect society. Sincere belief must be backed by action.',lu:'اللہ کی حدود معاشرے کی حفاظت کرتی ہیں۔'},
+
+  {e:'🌾',n:'The Story of Shuaib (AS)',nu:'شعیب علیہ السلام',a:'حضرت شعيب عليه السلام',p:'The prophet who taught business ethics',
+   en:'Prophet Shuaib (AS) was sent to the people of Madyan who cheated in business — giving less in weights and measures.\n\nHe told them: "Give full measure and weight. Do not deprive people of their due. Do not cause corruption in the land."\n\nThey mocked him: "Does your prayer command you that we leave what our fathers worshipped?" They threatened him. When they refused to change, Allah destroyed them with an earthquake.\n\nHonest trade is an Islamic obligation.',
+   ur:'شعیب علیہ السلام کی قوم ناپ تول میں کمی کرتی تھی۔ آپ نے منع کیا۔ نہ مانے تو زلزلے سے ہلاک ہوئے۔',
+   l:'Honest business is worship. Cheating is a grave sin in Islam.',lu:'ایمانداری سے کاروبار عبادت ہے۔ دھوکہ دینا کبیرہ گناہ ہے۔'},
+
+  {e:'🌸',n:'The Story of Asiyah (RA)',nu:'آسیہ رضی اللہ عنہا',a:'حضرت آسية زوجة فرعون',p:'The wife of Pharaoh who chose faith over a palace',
+   en:'Asiyah (RA) was the wife of the most powerful man on earth — Pharaoh. When she saw the miracle of Musa (AS), she believed in Allah with complete conviction.\n\nWhen Pharaoh discovered her faith, he tortured her brutally. But she remained firm. While being tortured, she made this beautiful dua: "O Allah! Build for me a house near You in Paradise, and save me from Pharaoh and his deeds."\n\nAllah answered her dua. She is listed among the greatest women who ever lived.',
+   ur:'آسیہ رضی اللہ عنہا فرعون کی بیوی تھیں۔ موسیٰ علیہ السلام کا معجزہ دیکھ کر ایمان لائیں۔ فرعون نے تشدد کیا۔ انہوں نے جنت کی دعا مانگی۔',
+   l:'Faith has no boundary of social status. The greatest courage is choosing Allah over worldly power.',lu:'ایمان کا تعلق مرتبے سے نہیں۔ اللہ کو دنیا پر ترجیح دینا سب سے بڑی ہمت ہے۔'},
+
+  {e:'🦋',n:'Uwais al-Qarni',nu:'اویس قرنی',a:'أويس القرني',p:'The saint the Prophet ﷺ mentioned before birth',
+   en:'Uwais al-Qarni never met the Prophet ﷺ in person, yet the Prophet told his companions: "Among the Tabi\'een there is a man called Uwais — he has a white spot. If he makes dua, Allah accepts it. Tell him to ask forgiveness for you."\n\nUwais loved the Prophet ﷺ so deeply that when he heard the Prophet\'s tooth was broken in Uhud, he broke all his own teeth out of love!\n\nHis devotion to his mother prevented him from traveling to meet the Prophet. The Prophet said his dua was accepted because of his obedience to his mother.',
+   ur:'اویس قرنی نے نبی ﷺ سے کبھی ملاقات نہیں کی۔ پھر بھی نبی ﷺ نے ان کی تعریف کی۔ والدہ کی خدمت میں اتنے مشغول تھے کہ سفر نہ کر سکے۔',
+   l:'Serving your mother is one of the greatest acts of worship.',lu:'والدہ کی خدمت سب سے بڑی عبادتوں میں سے ہے۔'},
+
+  {e:'🏰',n:'The Story of the People of the Trench (Ashab-ul-Ukhdood)',nu:'اصحاب الاخدود',a:'أصحاب الأخدود',p:'Young believers who chose death over betrayal',
+   en:'A king had a sorcerer who was old and needed an apprentice. A young man named Tariq was sent to him but met a monk on the way who taught him about true faith.\n\nTariq began performing miracles — healing the blind and sick — and many people accepted faith. The king demanded he renounce his faith. He refused.\n\nThe king tried to have him killed but every attempt failed — each executioner died instead. Finally the boy told the king: "You cannot kill me unless you place me on a wooden cross, take my arrow, and shoot me saying: In the name of the Lord of this boy."\n\nThe king did so and the boy died. But all the people witnessing said: "We believe in the Lord of the boy!" — a great victory of faith.',
+   ur:'ایک نوجوان نے معجزات دکھائے۔ بادشاہ نے ایمان چھوڑنے کو کہا، اس نے انکار کیا۔ مرتے وقت لوگ ایمان لے آئے۔',
+   l:'True faith is stronger than any power in the world.',lu:'سچا ایمان دنیا کی ہر طاقت سے مضبوط ہے۔'},
+
+  {e:'🌙',n:'Al-Isra — Night Journey',nu:'اسراء',a:'الإسراء إلى بيت المقدس',p:'From Makkah to Jerusalem in one night',
+   en:'The Isra was the miraculous night journey of the Prophet ﷺ from Masjid al-Haram in Makkah to Masjid al-Aqsa in Jerusalem.\n\nOn the winged animal Buraq, the Prophet ﷺ traveled this impossible distance in moments. At Al-Aqsa, he led all the prophets in prayer — a symbol that he was the Imam of all prophets.\n\nFrom Al-Aqsa, the Miraj began — the ascent through the heavens. The Isra and Miraj together mark one of the greatest miracles in Islamic history.',
+   ur:'نبی ﷺ براق پر ایک رات میں مکہ سے بیت المقدس گئے۔ وہاں تمام انبیاء کی امامت کی۔ پھر آسمانوں کی طرف معراج شروع ہوئی۔',
+   l:'The Prophet ﷺ is the leader of all prophets. Follow his example in all things.',lu:'نبی ﷺ تمام انبیاء کے امام ہیں۔ ہر معاملے میں ان کی سنت اپناؤ۔'},
+
+  {e:'💫',n:'The Story of Tawbah of Ka\'ab ibn Malik (RA)',nu:'کعب بن مالک رضی اللہ عنہ',a:'حضرت كعب بن مالك رضي الله عنه',p:'The companion who missed a battle and repented',
+   en:'Ka\'ab ibn Malik (RA) was a beloved companion of the Prophet ﷺ. But he missed the Battle of Tabuk without a valid excuse — simply due to laziness.\n\nWhen the Prophet returned, the hypocrites made excuses. Ka\'ab told the truth: "O Messenger of Allah, I had no excuse." For 50 days, the Prophet commanded no one to speak to Ka\'ab or his two companions.\n\nFifty days of complete social isolation — his own wife, close friends, all silent. On the 50th day, the revelation came: Allah had forgiven them. Ka\'ab said: "The day of Allah\'s forgiveness was the happiest day of my life."',
+   ur:'کعب رضی اللہ عنہ سے غزوہ تبوک میں رہ جانے کی غلطی ہوئی۔ 50 دن کوئی نہ بولا۔ پھر اللہ نے معاف کیا۔ سچائی نے نجات دی۔',
+   l:'Always tell the truth even if it leads to difficulty. Honesty leads to forgiveness.',lu:'ہمیشہ سچ بولو چاہے تکلیف ہو۔ سچائی معافی تک لے جاتی ہے۔'},
+
+  {e:'🌺',n:'The Story of Ramlah bint Abi Sufyan (RA)',nu:'ام حبیبہ رضی اللہ عنہا',a:'حضرت أم حبيبة رضي الله عنها',p:'The daughter of Islam\'s enemy who chose her faith',
+   en:'Ramlah bint Abi Sufyan (RA) was the daughter of Abu Sufyan — the greatest enemy of Islam at that time. Yet she accepted Islam against her father\'s wishes.\n\nShe and her first husband emigrated to Abyssinia. There, her husband converted to Christianity and abandoned her with a small baby. She was alone in a foreign land.\n\nThe Prophet ﷺ sent a proposal of marriage to her — she was overjoyed. The Negus of Abyssinia performed the marriage. She later became one of the Mothers of the Believers.',
+   ur:'ام حبیبہ رضی اللہ عنہا اسلام کے دشمن ابوسفیان کی بیٹی تھیں۔ اسلام لائیں۔ شوہر نے ساتھ چھوڑا۔ نبی ﷺ نے نکاح کا پیغام بھیجا۔ امہات المومنین بنیں۔',
+   l:'Faith is a personal choice. No family pressure can override the call of truth.',lu:'ایمان ذاتی انتخاب ہے۔ کوئی خاندانی دباؤ سچ کی آواز نہیں دبا سکتا۔'},
+
+  {e:'🌟',n:'The Last Sermon of the Prophet ﷺ',nu:'خطبہ حجۃ الوداع',a:'خطبة حجة الوداع',p:'The final message to all of humanity',
+   en:'In his final Hajj in 632 CE, the Prophet ﷺ addressed over 100,000 companions at Arafat in what became the most important speech in human history.\n\nHe said: "O People! Your Lord is One. Your father is one. An Arab is not superior to a non-Arab except through piety. The most honored among you before Allah is the most righteous."\n\n"I have left two things among you — if you hold to them you will never go astray: the Book of Allah and the Sunnah of His Prophet."\n\n"Every Muslim is the brother of every other Muslim." He passed away 81 days later.',
+   ur:'نبی ﷺ نے حجۃ الوداع میں 1 لاکھ سے زیادہ صحابہ کے سامنے خطبہ دیا۔ برابری، قرآن و سنت اور اخوت کا پیغام دیا۔',
+   l:'All humans are equal before Allah. Righteousness is the only measure of honor.',lu:'سب انسان اللہ کے سامنے برابر ہیں۔ تقویٰ ہی عزت کی کسوٹی ہے۔'},
+];
+
+// ===== NUMBERS =====
+var NUMS=[
+  {a:'٠',d:'0',e:'Zero',u:'صفر'},{a:'١',d:'1',e:'One',u:'ایک'},{a:'٢',d:'2',e:'Two',u:'دو'},
+  {a:'٣',d:'3',e:'Three',u:'تین'},{a:'٤',d:'4',e:'Four',u:'چار'},{a:'٥',d:'5',e:'Five',u:'پانچ'},
+  {a:'٦',d:'6',e:'Six',u:'چھے'},{a:'٧',d:'7',e:'Seven',u:'سات'},{a:'٨',d:'8',e:'Eight',u:'آٹھ'},
+  {a:'٩',d:'9',e:'Nine',u:'نو'},{a:'١٠',d:'10',e:'Ten',u:'دس'},{a:'١١',d:'11',e:'Eleven',u:'گیارہ'},
+  {a:'١٢',d:'12',e:'Twelve',u:'بارہ'},{a:'١٣',d:'13',e:'Thirteen',u:'تیرہ'},{a:'١٤',d:'14',e:'Fourteen',u:'چودہ'},
+  {a:'١٥',d:'15',e:'Fifteen',u:'پندرہ'},{a:'٢٠',d:'20',e:'Twenty',u:'بیس'},{a:'٢٥',d:'25',e:'Twenty-Five',u:'پچیس'},
+  {a:'٣٠',d:'30',e:'Thirty',u:'تیس'},{a:'٤٠',d:'40',e:'Forty',u:'چالیس'},{a:'٥٠',d:'50',e:'Fifty',u:'پچاس'},
+  {a:'٦٠',d:'60',e:'Sixty',u:'ساٹھ'},{a:'٧٠',d:'70',e:'Seventy',u:'ستر'},{a:'١٠٠',d:'100',e:'Hundred',u:'سو'},
+];
+
+// ===== STATE =====
+var U=null, CT='emerald', CL=0, CDC='Daily';
+var TC=0, TS=0, TI=0, XP=0, STK=1, DLN=0;
+var VCS=[], SVN='', TTSR=false;
+
+// ===== BADGES =====
+var BADGES=[
+  {id:'first_login',e:'🌟',l:'First Login',desc:'Welcome to Noor Kids!'},
+  {id:'lesson5',e:'📖',l:'5 Lessons',desc:'Completed 5 lessons'},
+  {id:'lesson10',e:'🎓',l:'10 Lessons',desc:'Completed 10 lessons'},
+  {id:'dua10',e:'🤲',l:'10 Duas',desc:'Learned 10 duas'},
+  {id:'tasbeeh33',e:'📿',l:'First Tasbeeh',desc:'Completed 33 tasbeeh'},
+  {id:'story5',e:'📜',l:'5 Stories',desc:'Read 5 stories'},
+  {id:'xp100',e:'⭐',l:'100 XP',desc:'Earned 100 XP'},
+  {id:'xp500',e:'🌙',l:'500 XP',desc:'Earned 500 XP'},
+];
+var earnedBadges=[];
+
+// ===== TTS — ResponsiveVoice (Works on ALL mobile browsers) =====
+var VCS=[], SVN='', TTSR=false;
+var TTS_AR_VOICE='Arabic Male';
+var TTS_UR_VOICE='Urdu Male';
+var TTS_EN_VOICE='UK English Male';
+
+function initTTS(){
+  // ResponsiveVoice is ready automatically via CDN
+  // Fallback to browser TTS if ResponsiveVoice not available
+  setTimeout(function(){
+    if(window.responsiveVoice){
+      showTTSStatus('✅ TTS Ready!', 'ok');
+    } else if(window.speechSynthesis){
+      showTTSStatus('⚠️ Using Browser TTS', 'warn');
+      initBrowserTTS();
+    } else {
+      showTTSStatus('❌ TTS Not Available', 'err');
+    }
+  }, 1000);
+}
+
+function initBrowserTTS(){
+  function L(){
+    VCS=speechSynthesis.getVoices();
+    bVSel();
+  }
+  if(speechSynthesis.onvoiceschanged!==undefined) speechSynthesis.onvoiceschanged=L;
+  L(); setTimeout(L,600); setTimeout(L,1500);
+}
+
+function bVSel(){
+  var s=document.getElementById('vsel');
+  if(!s||!VCS.length) return;
+  s.innerHTML='<option value="">Auto Select</option>';
+  var ar=VCS.filter(function(v){return v.lang.startsWith('ar');}),
+      ur=VCS.filter(function(v){return v.lang.startsWith('ur');}),
+      en=VCS.filter(function(v){return v.lang.startsWith('en');});
+  function ag(lb,lst){
+    if(!lst.length)return;
+    var g=document.createElement('optgroup'); g.label=lb;
+    lst.forEach(function(v){
+      var o=document.createElement('option');
+      o.value=v.name;
+      o.textContent=v.name+(v.localService?' ✓':'');
+      g.appendChild(o);
+    });
+    s.appendChild(g);
+  }
+  ag('🕌 Arabic',ar); ag('🇵🇰 Urdu',ur); ag('🌍 English',en);
+  var info=document.getElementById('voiceInfo');
+  if(info) info.textContent='Voices: '+ar.length+' Arabic · '+ur.length+' Urdu · '+en.length+' English';
+}
+
+function setV(n){ SVN=n; }
+
+function showTTSStatus(msg, type){
+  var ind=document.getElementById('ind');
+  if(!ind) return;
+  ind.textContent=msg;
+  ind.classList.add('on');
+  setTimeout(function(){ ind.classList.remove('on'); }, 2000);
+}
+
+function showInd(icon, label){
+  var ind=document.getElementById('ind');
+  if(!ind) return;
+  ind.textContent=icon+' '+label;
+  ind.classList.add('on');
+}
+function hideInd(){
+  var ind=document.getElementById('ind');
+  if(ind) ind.classList.remove('on');
+}
+
+// ===== MAIN SPEAK — ResponsiveVoice First, Browser TTS Fallback =====
+function spk(txt, lang){
+  if(!txt || !txt.trim()) return;
+  txt = txt.trim();
+
+  // Show indicator
+  var icons = {'ar-SA':'🕌', 'ur-PK':'🇵🇰', 'en-US':'🌍'};
+  var labels = {'ar-SA':'Arabic...', 'ur-PK':'Urdu...', 'en-US':'English...'};
+  showInd(icons[lang]||'🔊', labels[lang]||'Speaking...');
+
+  // === METHOD 1: ResponsiveVoice (Best for mobile) ===
+  if(window.responsiveVoice){
+    var voice;
+    if(lang==='ar-SA') voice = TTS_AR_VOICE;
+    else if(lang==='ur-PK') voice = TTS_UR_VOICE;
+    else voice = TTS_EN_VOICE;
+
+    // If user manually selected a voice, use that
+    if(SVN) voice = SVN;
+
+    responsiveVoice.cancel();
+    responsiveVoice.speak(txt, voice, {
+      rate: lang==='ar-SA' ? 0.7 : 0.85,
+      pitch: 1,
+      volume: 1,
+      onstart: function(){ },
+      onend: function(){ hideInd(); },
+      onerror: function(){
+        hideInd();
+        // Fallback to browser TTS
+        browserSpeak(txt, lang);
+      }
+    });
+    return;
+  }
+
+  // === METHOD 2: Browser speechSynthesis (Fallback) ===
+  browserSpeak(txt, lang);
+}
+
+function browserSpeak(txt, lang){
+  if(!window.speechSynthesis){ hideInd(); return; }
+  speechSynthesis.cancel();
+  setTimeout(function(){
+    if(!VCS.length) VCS=speechSynthesis.getVoices();
+    var u=new SpeechSynthesisUtterance(txt);
+    u.lang=lang||'en-US';
+    u.rate=lang==='ar-SA'?0.7:0.85;
+    u.pitch=1; u.volume=1;
+    // Find best matching voice
+    if(SVN){
+      var sv=VCS.find(function(v){return v.name===SVN;});
+      if(sv){u.voice=sv; u.lang=sv.lang;}
+    } else if(lang){
+      var mv=VCS.find(function(v){return v.lang===lang;})
+            ||VCS.find(function(v){return v.lang.split('-')[0]===lang.split('-')[0];});
+      if(mv) u.voice=mv;
+    }
+    u.onend=function(){ hideInd(); };
+    u.onerror=function(){ hideInd(); };
+    speechSynthesis.speak(u);
+  }, 100);
+}
+
+// Public functions
+function spkAr(t){ if(t) spk(t.trim(), 'ar-SA'); }
+function spkUr(t){ if(t) spk(t.trim(), 'ur-PK'); }
+function spkEn(t){ if(t) spk(t.trim(), 'en-US'); }
+
+// Test function
+function testTTS(lang){
+  var tests={
+    'ar-SA':'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+    'ur-PK':'اللہ کے نام سے شروع کرتا ہوں',
+    'en-US':'In the name of Allah the Most Gracious the Most Merciful'
+  };
+  spk(tests[lang]||tests['en-US'], lang);
+}
+
+// Voices available in ResponsiveVoice for manual selection
+var RV_VOICES=[
+  'Arabic Male','Arabic Female',
+  'Urdu Male',
+  'UK English Male','UK English Female',
+  'US English Male',
+];
+
+function buildRVVoiceSelect(){
+  var s=document.getElementById('vsel');
+  if(!s) return;
+  s.innerHTML='<option value="">🤖 Auto</option>';
+  if(window.responsiveVoice){
+    var g=document.createElement('optgroup'); g.label='ResponsiveVoice';
+    RV_VOICES.forEach(function(v){
+      var o=document.createElement('option'); o.value=v; o.textContent=v; g.appendChild(o);
+    });
+    s.appendChild(g);
+  }
+  // Also add browser voices
+  bVSel();
+}
+
+// ===== GOOGLE LOGIN =====
+function doGL(){
+  if(typeof google!=='undefined'&&google.accounts&&google.accounts.id){
+    google.accounts.id.initialize({client_id:GCID,callback:onGT,auto_select:false,cancel_on_tap_outside:true});
+    google.accounts.id.prompt(function(n){if(n.isNotDisplayed()||n.isSkippedMoment())showGN();});
+  }else{showGN();}
+}
+function onGT(r){
+  if(!r||!r.credential){showGN();return;}
+  try{var p=JSON.parse(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));U={name:p.name||p.given_name||'Friend',email:p.email||'',pic:p.picture||'',type:'google'};launch();}
+  catch(e){showGN();}
+}
+function showGN(){
+  var n=document.getElementById('gnote');n.style.display='block';
+  n.innerHTML='<b style="color:#fca5a5">⚠️ Google Sign-In Setup Needed</b><br>Add <b>https://navpix2-pixel.github.io</b> to <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a> → Credentials → Authorized JavaScript origins<br><br><button onclick="demoL()">🚀 Demo Login (Testing)</button>';
+}
+function demoL(){U={name:'Ahmad',email:'ahmad@gmail.com',pic:'',type:'demo'};launch();}
+function guestL(){U={name:'Guest',email:'',pic:'',type:'guest'};launch();}
+
+function launch(){
+  loadS();
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('mainApp').style.display='flex';
+  // Avatar
+  var av=document.getElementById('uav');
+  if(U.pic){av.innerHTML='<img src="'+U.pic+'" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover">';}
+  else{av.textContent=U.name[0].toUpperCase();}
+  document.getElementById('greet').textContent='Assalamu Alaikum, '+U.name+'! 👋';
+  // Check first login badge
+  if(!earnedBadges.includes('first_login')){earnBadge('first_login');}
+  buildAll();upS();initTTS();buildRVVoiceSelect();
+}
+
+function logout(){
+  try{if(typeof google!=='undefined'&&google.accounts)google.accounts.id.disableAutoSelect();}catch(e){}
+  U=null;
+  document.getElementById('mainApp').style.display='none';
+  document.getElementById('loginPage').style.display='flex';
+  closeSet();closeProfModal();
+}
+
+// ===== SAVE/LOAD =====
+function saveS(){try{localStorage.setItem('nk4',JSON.stringify({XP,STK,DLN,TS,CL,CT,earnedBadges}));}catch(e){}}
+function loadS(){
+  try{
+    var s=JSON.parse(localStorage.getItem('nk4')||'{}');
+    XP=s.XP||0;STK=s.STK||1;DLN=s.DLN||0;TS=s.TS||0;CL=s.CL||0;
+    earnedBadges=s.earnedBadges||[];
+    if(s.CT){CT=s.CT;applyTh(CT,false);}
+  }catch(e){}
+}
+function addXP(n){XP+=n;upS();saveS();checkBadges();}
+function upS(){
+  var lv=Math.floor(XP/100)+1;
+  document.getElementById('xlv').textContent=lv;
+  document.getElementById('xtxt').textContent=XP+'/'+(lv*100)+' XP';
+  document.getElementById('xf').style.width=(XP%100)+'%';
+  document.getElementById('st-x').textContent=XP;
+  document.getElementById('st-s').textContent=STK;
+  document.getElementById('st-d').textContent=DLN;
+}
+
+// ===== BADGES =====
+function earnBadge(id){
+  if(earnedBadges.includes(id))return;
+  earnedBadges.push(id);saveS();
+}
+function checkBadges(){
+  if(XP>=100)earnBadge('xp100');
+  if(XP>=500)earnBadge('xp500');
+  if(DLN>=10)earnBadge('dua10');
+  if(TS>=1)earnBadge('tasbeeh33');
+}
+
+// ===== PROFILE MODAL =====
+function openProf(){
+  var m=document.getElementById('profModal');m.classList.add('on');
+  // Fill data
+  var pp=document.getElementById('profPic');
+  if(U&&U.pic){pp.innerHTML='<img src="'+U.pic+'" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover">';}
+  else{pp.textContent=(U?U.name[0].toUpperCase():'G');}
+  document.getElementById('profName').textContent=U?U.name:'Guest';
+  document.getElementById('profEmail').textContent=U&&U.email?U.email:'Guest User';
+  document.getElementById('ps-xp').textContent=XP;
+  document.getElementById('ps-lv').textContent=Math.floor(XP/100)+1;
+  document.getElementById('ps-streak').textContent=STK;
+  // Badges
+  var bg=document.getElementById('badgesGrid');bg.innerHTML='';
+  BADGES.forEach(function(b){
+    var d=document.createElement('div');
+    var earned=earnedBadges.includes(b.id);
+    d.className='badge'+(earned?' earned':'');
+    d.textContent=b.e+' '+b.l;
+    d.title=b.desc;
+    bg.appendChild(d);
+  });
+}
+function closeProfModal(){document.getElementById('profModal').classList.remove('on');}
+
+// ===== NAV =====
+function go(id){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('pg-'+id).classList.add('on');
+  var nb=document.getElementById('nb-'+id);if(nb)nb.classList.add('on');
+  window.scrollTo(0,0);
+}
+
+// ===== BUILD ALL =====
+function buildAll(){bLT();rL(CL);bDC();rD(CDC);bT();bSt();bN();bTh();}
+
+// ===== QAIDA =====
+function bLT(){
+  var w=document.getElementById('ltabs');w.innerHTML='';
+  LESSONS.forEach(function(l,i){
+    var b=document.createElement('button');b.className='ltab'+(i===CL?' on':'');b.textContent=l.id;
+    b.onclick=function(){CL=i;document.querySelectorAll('.ltab').forEach(function(x){x.classList.remove('on');});b.classList.add('on');rL(i);};
+    w.appendChild(b);
+  });
+}
+function rL(i){
+  var l=LESSONS[i];var w=document.getElementById('lcon');
+  var H='<div class="ldis"><div class="ldisa">'+l.a+'</div><div class="ldisu">'+l.u+'</div><div class="ldise">'+l.d+'</div></div>'
+    +'<div class="pgbar"><div class="pgrow"><span>'+l.t+'</span><span>'+l.id+'/L30</span></div><div class="pgbg"><div class="pgfill" style="width:'+Math.round((i+1)/LESSONS.length*100)+'%"></div></div></div>';
+
+  if(l.type==='letters'){
+    H+='<div class="slbl">📚 All 29 Arabic Letters</div><div class="lgrid" id="lgrid">';
+    LETTERS.forEach(function(lt,li){H+='<div class="lbtn" data-li="'+li+'" onclick="sL(this)"><span class="la">'+lt.a+'</span><span class="lu">'+lt.u+'</span></div>';});
+    H+='</div><div class="det" id="det"><div style="text-align:center;padding:18px 0;color:var(--t3)"><div style="font-size:2rem">👆</div><div style="font-size:.8rem;margin-top:5px">Tap any letter for details and pronunciation</div><div style="font-family:Amiri,serif;direction:rtl;color:var(--gold3);margin-top:3px">حرف پر ٹیپ کریں</div></div></div>';
+
+  }else if(l.type==='surahs'){
+    H+='<div class="slbl">📖 Surah</div>';
+    l.items.forEach(function(s){
+      H+='<div class="card"><div class="ctit">📜 Surah '+s.n+'</div>'
+        +'<div style="font-family:Amiri,serif;font-size:1.65rem;color:var(--gold);direction:rtl;text-align:right;line-height:2;margin-bottom:8px">'+s.a+'</div>'
+        +'<div style="font-family:Amiri,serif;font-size:.9rem;color:var(--orange);direction:rtl;text-align:right;line-height:1.8;margin-bottom:7px;padding:8px;background:rgba(253,186,116,.07);border-radius:9px">'+s.u+'</div>'
+        +'<div style="font-size:.78rem;color:var(--t2);font-style:italic;margin-bottom:9px">'+s.e+'</div>'
+        +'<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn-sp" onclick="spkAr(this.closest(\'.card\').querySelectorAll(\'[style]\')[0].textContent)">🔊 Arabic</button>'
+        +'<button class="btn-sp" onclick="spkUr(this.closest(\'.card\').querySelectorAll(\'[style]\')[1].textContent)">🔊 Urdu</button></div></div>';
+    });
+
+  }else if(l.type==='rules'){
+    H+='<div class="slbl">📋 Rules</div>';
+    l.items.forEach(function(r){
+      H+='<div class="card"><div style="font-family:Amiri,serif;font-size:2rem;color:var(--gold);direction:rtl;margin-bottom:5px">'+r.a+'</div>'
+        +'<div style="font-family:Fredoka One;font-size:.92rem;color:var(--gold);margin-bottom:2px">'+r.r+'</div>'
+        +'<div style="font-family:Amiri,serif;color:var(--orange);direction:rtl;font-size:.9rem;margin-bottom:4px">'+r.u+'</div>'
+        +'<div style="font-size:.7rem;color:var(--t3);font-style:italic">'+r.n+'</div>'
+        +'<button class="btn-sp" style="margin-top:8px" onclick="spkEn(\''+r.r.replace(/'/g,"\\'")+'\')" >🔊 Explain</button></div>';
+    });
+
+  }else{
+    H+='<div class="slbl">✨ '+l.u+'</div><div class="tilegrid">';
+    l.items.forEach(function(it,ti){H+='<div class="tile" data-ti="'+ti+'" data-li="'+i+'" onclick="sTile(this)"><span class="tilear">'+it.a+'</span><span class="tilero">'+it.u+'</span></div>';});
+    H+='</div><div class="hbox"><span class="hboxa" id="ha">بَ</span><div class="hboxr" id="hr">Tap above to hear</div><div class="hboxbtns"><button class="btn-sp" onclick="spkAr(document.getElementById(\'ha\').textContent)">🔊 Arabic</button><button class="btn-sp" onclick="spkEn(document.getElementById(\'hr\').textContent)">🔊 Say it</button></div></div>';
+  }
+
+  H+='<div style="display:flex;justify-content:space-between;gap:9px;margin-top:10px"><button class="btn-ghost" onclick="pL()">⬅️ Prev</button><button class="btn-gold" onclick="nL()">Next ➡️</button></div>';
+  w.innerHTML=H;addXP(3);
+  if(CL>=5&&!earnedBadges.includes('lesson5'))earnBadge('lesson5');
+  if(CL>=10&&!earnedBadges.includes('lesson10'))earnBadge('lesson10');
+}
+
+function sL(el){
+  var li=parseInt(el.getAttribute('data-li'));var lt=LETTERS[li];
+  document.querySelectorAll('.lbtn').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');
+  if(document.getElementById('autospk').checked)spkAr(lt.a);
+  addXP(2);
+  var det=document.getElementById('det');if(!det)return;
+  var fH=lt.f.map(function(f,fi){return'<div class="fc"><span class="fcar">'+f+'</span><span class="fcn">'+(lt.fn[fi]||'')+'</span></div>';}).join('');
+  var wH=lt.w.map(function(w){return'<div class="word" onclick="spkAr(\''+w.a+'\')"><span class="wordar">'+w.a+'</span><span class="worden">'+w.e+'</span></div>';}).join('');
+  det.innerHTML='<div class="detmain"><div class="detbig">'+lt.a+'</div><div><div class="detn">'+lt.r+'</div><div class="detu">'+lt.u+'</div><div class="detd">'+lt.p+'</div></div></div>'
+    +(lt.p?'<div class="pronbox"><div class="pronlbl">🗣️ How to Pronounce</div><div class="prontxt">'+lt.p+'</div></div>':'')
+    +'<div class="flbl">✍️ Letter Forms</div><div class="fgrid">'+fH+'</div>'
+    +(wH?'<div class="flbl" style="margin-top:10px">📝 Example Words</div><div class="words">'+wH+'</div>':'')
+    +'<div class="detbtns"><button class="btn-sp" onclick="spkAr(\''+lt.a+'\')">🔊 Arabic</button><button class="btn-sp" onclick="spkEn(\''+lt.r+'\')">🔊 Name</button><button class="btn-sp" onclick="spkUr(\''+lt.u+'\')">🔊 Urdu</button>'+(lt.w[0]?'<button class="btn-sp" onclick="spkAr(\''+lt.w[0].a+'\')">🔊 Word</button>':'')+'</div>';
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function sTile(el){
+  var li=parseInt(el.getAttribute('data-li'));var ti=parseInt(el.getAttribute('data-ti'));
+  var it=LESSONS[li].items[ti];
+  var ha=document.getElementById('ha');var hr=document.getElementById('hr');
+  if(ha)ha.textContent=it.a;if(hr)hr.textContent=it.u+' — '+it.r;
+  spkAr(it.a);addXP(2);
+}
+function nL(){CL=Math.min(CL+1,LESSONS.length-1);bLT();rL(CL);addXP(8);}
+function pL(){CL=Math.max(CL-1,0);bLT();rL(CL);}
+
+// ===== DUAS =====
+function bDC(){
+  var w=document.getElementById('dcats');w.innerHTML='';
+  DCA.forEach(function(c){
+    var b=document.createElement('button');b.className='dcat'+(c===CDC?' on':'');b.textContent=c;
+    b.onclick=function(){CDC=c;document.querySelectorAll('.dcat').forEach(function(x){x.classList.remove('on');});b.classList.add('on');rD(c);};
+    w.appendChild(b);
+  });
+}
+function rD(cat){
+  var dl=document.getElementById('dlist');dl.innerHTML='';
+  (DUAS[cat]||[]).forEach(function(d){
+    var div=document.createElement('div');div.className='dcard';
+    div.innerHTML='<div class="dn">🤲 '+d.n+'</div><div class="dnr">'+d.nu+'</div><div class="dw">📅 '+d.w+'</div>'
+      +'<div class="dar">'+d.a+'</div><div class="dur">'+d.u+'</div><div class="dtr">🔤 '+d.t+'</div><div class="den">💬 '+d.e+'</div>'
+      +'<div class="dbtns"><button class="btn-sp" onclick="event.stopPropagation();spkAr(this.closest(\'.dcard\').querySelector(\'.dar\').textContent)">🔊 Arabic</button><button class="btn-sp" onclick="event.stopPropagation();spkUr(this.closest(\'.dcard\').querySelector(\'.dur\').textContent)">🔊 Urdu</button><button class="btn-sp" onclick="event.stopPropagation();spkEn(this.closest(\'.dcard\').querySelector(\'.den\').textContent)">🔊 English</button></div>';
+    div.onclick=function(){div.classList.toggle('on');if(div.classList.contains('on')){DLN++;addXP(3);}};
+    dl.appendChild(div);
+  });
+}
+
+// ===== TASBEEH =====
+function bT(){
+  var s=document.getElementById('tsel');s.innerHTML='';
+  TASBEEHS.forEach(function(t,i){
+    var d=document.createElement('div');d.className='to'+(i===0?' on':'');
+    d.innerHTML='<span class="toa">'+t.a+'</span><div class="toe">'+t.e+'</div>';
+    d.onclick=function(){TI=i;document.querySelectorAll('.to').forEach(function(o){o.classList.remove('on');});d.classList.add('on');document.getElementById('ta').textContent=t.a;document.getElementById('tu').textContent=t.u;document.getElementById('tm').textContent=t.m;resetT();};
+    s.appendChild(d);
+  });upR();
+}
+function tap(e){
+  unlockTTS();TC++;
+  if(TC>33){TC=1;TS++;showCP();addXP(15);saveS();earnBadge('tasbeeh33');}
+  upR();ptB(e);
+  var n=document.getElementById('rn');n.classList.add('bump');setTimeout(function(){n.classList.remove('bump');},110);
+}
+function upR(){
+  document.getElementById('rn').textContent=TC;document.getElementById('tsn').textContent=TS;
+  document.getElementById('ring').style.background='conic-gradient(var(--gold) '+(TC/33*360)+'deg,rgba(240,192,64,.1) '+(TC/33*360)+'deg)';
+}
+function resetT(){TC=0;upR();}
+function showCP(){var p=document.getElementById('cpop');p.classList.add('on');setTimeout(function(){p.classList.remove('on');},2000);}
+
+// ===== STORIES =====
+function bSt(){
+  var w=document.getElementById('slist');w.innerHTML='';
+  STORIES.forEach(function(s,i){
+    var d=document.createElement('div');d.className='scard';
+    var paras=s.en.split('\n\n').map(function(p){return'<p>'+p+'</p>';}).join('');
+    d.innerHTML='<div class="shead" onclick="togS('+i+')"><div class="sem">'+s.e+'</div><div><div class="sn">'+s.n+'</div><div class="snu">'+s.nu+'</div><div class="sp">'+s.p+'</div></div></div>'
+      +'<div class="sbody" id="sb'+i+'"><div class="sart">'+s.a+'</div><div class="sten" id="se'+i+'">'+paras+'</div><div class="stur" id="su'+i+'">'+s.ur+'</div><div class="sles"><b>🌟 Lesson:</b> '+s.l+'<br><b>سبق:</b> '+s.lu+'</div><div class="sbtns"><button class="btn-sp" onclick="spkEn(document.getElementById(\'se'+i+'\').textContent)">🔊 English</button><button class="btn-sp" onclick="spkUr(document.getElementById(\'su'+i+'\').textContent)">🔊 Urdu</button></div></div>';
+    w.appendChild(d);
+  });
+}
+function togS(i){
+  var b=document.getElementById('sb'+i);var was=b.classList.contains('on');
+  document.querySelectorAll('.sbody').forEach(function(x){x.classList.remove('on');});
+  if(!was){b.classList.add('on');addXP(8);if(earnedBadges.filter(function(x){return x==='story5';}).length<1&&STORIES.filter(function(_,si){return document.getElementById('sb'+si)&&document.getElementById('sb'+si).classList.contains('on');}).length>=5)earnBadge('story5');}
+}
+
+// ===== NUMBERS =====
+function bN(){
+  var g=document.getElementById('ng');g.innerHTML='';
+  NUMS.forEach(function(n){
+    var d=document.createElement('div');d.className='nc';
+    d.innerHTML='<span class="na">'+n.a+'</span><span class="nd">'+n.d+'</span><div class="ne">'+n.e+'</div><div class="nu-">'+n.u+'</div>';
+    d.onclick=function(){spkEn(n.e+', '+n.d);addXP(1);};
+    g.appendChild(d);
+  });
+}
+
+// ===== THEMES =====
+function bTh(){
+  var g=document.getElementById('thg');g.innerHTML='';
+  THEMES.forEach(function(t){
+    var d=document.createElement('div');d.className='thsw'+(t.id===CT?' on':'');d.style.background=t.bg;
+    d.innerHTML='<em>'+t.e+'</em><p>'+t.l+'</p>';
+    d.onclick=function(){applyTh(t.id,true);document.querySelectorAll('.thsw').forEach(function(x){x.classList.remove('on');});d.classList.add('on');};
+    g.appendChild(d);
+  });
+}
+function applyTh(id,sv){CT=id;document.documentElement.setAttribute('data-theme',id);if(sv)saveS();}
+
+// ===== SETTINGS =====
+function openSet(){document.getElementById('sov').classList.add('on');bVSel();}
+function closeSet(){document.getElementById('sov').classList.remove('on');}
+
+// ===== PARTICLES =====
+function ptB(e){
+  var em=['⭐','✨','🌟','💫','🌙'];
+  var el=document.createElement('div');el.className='pt';el.textContent=em[Math.floor(Math.random()*em.length)];
+  var dx=(Math.random()-.5)*150,dy=-(Math.random()*110+40);
+  el.style.setProperty('--dx',dx+'px');el.style.setProperty('--dy',dy+'px');
+  el.style.left=(((e&&e.clientX)||window.innerWidth/2)-10)+'px';el.style.top=(((e&&e.clientY)||window.innerHeight/2)-10)+'px';
+  document.body.appendChild(el);setTimeout(function(){el.remove();},720);
+}
+
+// PWA
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+</script>
+</body>
+</html>
